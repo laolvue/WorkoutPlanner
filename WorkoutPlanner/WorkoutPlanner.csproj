@@ -196,14 +196,35 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ExercisesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MusclesController.cs" />
+    <Compile Include="Controllers\UserInfoesController.cs" />
+    <Compile Include="Controllers\WorkoutsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704062042588_added userinfo table.cs" />
+    <Compile Include="Migrations\201704062042588_added userinfo table.Designer.cs">
+      <DependentUpon>201704062042588_added userinfo table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704062104535_added muscle and exercise tables.cs" />
+    <Compile Include="Migrations\201704062104535_added muscle and exercise tables.Designer.cs">
+      <DependentUpon>201704062104535_added muscle and exercise tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704062122549_added workouts table.cs" />
+    <Compile Include="Migrations\201704062122549_added workouts table.Designer.cs">
+      <DependentUpon>201704062122549_added workouts table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Exercise.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Muscle.cs" />
+    <Compile Include="Models\UserInfo.cs" />
+    <Compile Include="Models\Workout.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -265,6 +286,26 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\UserInfoes\Create.cshtml" />
+    <Content Include="Views\UserInfoes\Delete.cshtml" />
+    <Content Include="Views\UserInfoes\Details.cshtml" />
+    <Content Include="Views\UserInfoes\Edit.cshtml" />
+    <Content Include="Views\UserInfoes\Index.cshtml" />
+    <Content Include="Views\Muscles\Create.cshtml" />
+    <Content Include="Views\Muscles\Delete.cshtml" />
+    <Content Include="Views\Muscles\Details.cshtml" />
+    <Content Include="Views\Muscles\Edit.cshtml" />
+    <Content Include="Views\Muscles\Index.cshtml" />
+    <Content Include="Views\Exercises\Create.cshtml" />
+    <Content Include="Views\Exercises\Delete.cshtml" />
+    <Content Include="Views\Exercises\Details.cshtml" />
+    <Content Include="Views\Exercises\Edit.cshtml" />
+    <Content Include="Views\Exercises\Index.cshtml" />
+    <Content Include="Views\Workouts\Create.cshtml" />
+    <Content Include="Views\Workouts\Delete.cshtml" />
+    <Content Include="Views\Workouts\Details.cshtml" />
+    <Content Include="Views\Workouts\Edit.cshtml" />
+    <Content Include="Views\Workouts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -276,6 +317,17 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201704062042588_added userinfo table.resx">
+      <DependentUpon>201704062042588_added userinfo table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704062104535_added muscle and exercise tables.resx">
+      <DependentUpon>201704062104535_added muscle and exercise tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704062122549_added workouts table.resx">
+      <DependentUpon>201704062122549_added workouts table.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

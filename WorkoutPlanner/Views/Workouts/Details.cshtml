@@ -1,0 +1,50 @@
+﻿@model WorkoutPlanner.Models.Workout
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Workout</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Exercise.exerciseName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Exercise.exerciseName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Muscle.muscleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Muscle.muscleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sets)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sets)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.reps)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.reps)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.workoutId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
