@@ -7,15 +7,14 @@ using System.Web;
 
 namespace WorkoutPlanner.Models
 {
-    public class Workout
+    public class DayPlanner
     {
         [Key]
+        public int dayPlannerId { get; set; }
+        [ForeignKey("Workout")]
         public int workoutId { get; set; }
-        public string workoutName { get; set; }
-        [ForeignKey("Exercise")]
-        public int exerciseId { get; set; }
-        public Exercise Exercise { get; set; }
-        public int sets { get; set; }
-        public int reps { get; set; }
+        public Workout Workout { get; set; }
+        public DateTime startAt { get; set; }
+        public DateTime endAt { get; set; }
     }
 }

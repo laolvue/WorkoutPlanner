@@ -10,118 +10,131 @@ using WorkoutPlanner.Models;
 
 namespace WorkoutPlanner.Controllers
 {
-    public class WorkoutsController : Controller
+    public class EventfulsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Workouts
+        // GET: Eventfuls
         public ActionResult Index()
         {
-            var workouts = db.Workouts.Include(w => w.Exercise);
-            return View(workouts.ToList());
+            return View(db.Eventfuls.ToList());
         }
 
-        // GET: Workouts/Details/5
+        // GET: Eventfuls/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Workout workout = db.Workouts.Find(id);
-            if (workout == null)
+            Eventful eventful = db.Eventfuls.Find(id);
+            if (eventful == null)
             {
                 return HttpNotFound();
             }
-            return View(workout);
+            return View(eventful);
         }
 
-        // GET: Workouts/Create
+        // GET: Eventfuls/Create
         public ActionResult Create()
         {
-            ViewBag.exerciseId = new SelectList(db.Exercises, "exerciseId", "exerciseName");
+            List<SelectListItem> muscleName = new List<SelectListItem>();
+            foreach( var j in db.Muscles)
+            {
+                string temporaryName = j.muscleName.ToString();
+                string temporaryId = j.muscleId.ToString();
+                muscleName.Add(new SelectListItem { Text = temporaryName, Value = temporaryId });
+            }
+            ViewData["muscleName"] = muscleName;
             return View();
         }
 
-        // POST: Workouts/Create
+        // POST: Eventfuls/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "workoutId,workoutName,exerciseId,sets,reps")] Workout workout)
+        public ActionResult Create([Bind(Include = "Id,Title,Description,StartAt,EndAt,IsFullDay")] Eventful workoutEvent)
         {
             if (ModelState.IsValid)
             {
-                var workoutName = from a in db.Exercises
-                                  where a.exerciseId == workout.exerciseId
-                                  select a.exerciseName;
-                foreach(var item in workoutName.ToList())
+                var muscleName = from a in db.Muscles
+                                 where a.muscleId.ToString() == workoutEvent.Title
+                                 select a.muscleName;
+                var fea = muscleName.ToList();
+                string joe = fea[0];
+
+
+                Eventful eventful2 = new Eventful
                 {
-                    workout.workoutName = item;
-                }
-                db.Workouts.Add(workout);
+                    Title = joe,
+                    Description = workoutEvent.Description,
+                    StartAt = workoutEvent.StartAt,
+                    EndAt = workoutEvent.EndAt,
+                    IsFullDay = workoutEvent.IsFullDay
+                   
+                };
+                db.Eventfuls.Add(eventful2);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.exerciseId = new SelectList(db.Exercises, "exerciseId", "exerciseName", workout.exerciseId);
-            return View(workout);
+
+            return View();
         }
 
-        // GET: Workouts/Edit/5
+        // GET: Eventfuls/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Workout workout = db.Workouts.Find(id);
-            if (workout == null)
+            Eventful eventful = db.Eventfuls.Find(id);
+            if (eventful == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.exerciseId = new SelectList(db.Exercises, "exerciseId", "exerciseName", workout.exerciseId);
-            return View(workout);
+            return View(eventful);
         }
 
-        // POST: Workouts/Edit/5
+        // POST: Eventfuls/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "workoutId,workoutName,exerciseId,sets,reps")] Workout workout)
+        public ActionResult Edit([Bind(Include = "Id,Title,Description,StartAt,EndAt,IsFullDay")] Eventful eventful)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(workout).State = EntityState.Modified;
+                db.Entry(eventful).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.exerciseId = new SelectList(db.Exercises, "exerciseId", "exerciseName", workout.exerciseId);
-            return View(workout);
+            return View(eventful);
         }
 
-        // GET: Workouts/Delete/5
+        // GET: Eventfuls/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Workout workout = db.Workouts.Find(id);
-            if (workout == null)
+            Eventful eventful = db.Eventfuls.Find(id);
+            if (eventful == null)
             {
                 return HttpNotFound();
             }
-            return View(workout);
+            return View(eventful);
         }
 
-        // POST: Workouts/Delete/5
+        // POST: Eventfuls/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Workout workout = db.Workouts.Find(id);
-            db.Workouts.Remove(workout);
+            Eventful eventful = db.Eventfuls.Find(id);
+            db.Eventfuls.Remove(eventful);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -10,118 +10,112 @@ using WorkoutPlanner.Models;
 
 namespace WorkoutPlanner.Controllers
 {
-    public class WorkoutsController : Controller
+    public class DayPlannersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Workouts
+        // GET: DayPlanners
         public ActionResult Index()
         {
-            var workouts = db.Workouts.Include(w => w.Exercise);
-            return View(workouts.ToList());
+            var dayPlanners = db.DayPlanners.Include(d => d.Workout);
+            return View(dayPlanners.ToList());
         }
 
-        // GET: Workouts/Details/5
+        // GET: DayPlanners/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Workout workout = db.Workouts.Find(id);
-            if (workout == null)
+            DayPlanner dayPlanner = db.DayPlanners.Find(id);
+            if (dayPlanner == null)
             {
                 return HttpNotFound();
             }
-            return View(workout);
+            return View(dayPlanner);
         }
 
-        // GET: Workouts/Create
+        // GET: DayPlanners/Create
         public ActionResult Create()
         {
-            ViewBag.exerciseId = new SelectList(db.Exercises, "exerciseId", "exerciseName");
+            ViewBag.workoutId = new SelectList(db.Workouts, "workoutId", "workoutName");
             return View();
         }
 
-        // POST: Workouts/Create
+        // POST: DayPlanners/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "workoutId,workoutName,exerciseId,sets,reps")] Workout workout)
+        public ActionResult Create([Bind(Include = "dayPlannerId,workoutId,startAt,endAt")] DayPlanner dayPlanner)
         {
             if (ModelState.IsValid)
             {
-                var workoutName = from a in db.Exercises
-                                  where a.exerciseId == workout.exerciseId
-                                  select a.exerciseName;
-                foreach(var item in workoutName.ToList())
-                {
-                    workout.workoutName = item;
-                }
-                db.Workouts.Add(workout);
+                db.DayPlanners.Add(dayPlanner);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.exerciseId = new SelectList(db.Exercises, "exerciseId", "exerciseName", workout.exerciseId);
-            return View(workout);
+
+            ViewBag.workoutId = new SelectList(db.Workouts, "workoutId", "workoutName", dayPlanner.workoutId);
+            return View(dayPlanner);
         }
 
-        // GET: Workouts/Edit/5
+        // GET: DayPlanners/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Workout workout = db.Workouts.Find(id);
-            if (workout == null)
+            DayPlanner dayPlanner = db.DayPlanners.Find(id);
+            if (dayPlanner == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.exerciseId = new SelectList(db.Exercises, "exerciseId", "exerciseName", workout.exerciseId);
-            return View(workout);
+            ViewBag.workoutId = new SelectList(db.Workouts, "workoutId", "workoutName", dayPlanner.workoutId);
+            return View(dayPlanner);
         }
 
-        // POST: Workouts/Edit/5
+        // POST: DayPlanners/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "workoutId,workoutName,exerciseId,sets,reps")] Workout workout)
+        public ActionResult Edit([Bind(Include = "dayPlannerId,workoutId,startAt,endAt")] DayPlanner dayPlanner)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(workout).State = EntityState.Modified;
+                db.Entry(dayPlanner).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.exerciseId = new SelectList(db.Exercises, "exerciseId", "exerciseName", workout.exerciseId);
-            return View(workout);
+            ViewBag.workoutId = new SelectList(db.Workouts, "workoutId", "workoutName", dayPlanner.workoutId);
+            return View(dayPlanner);
         }
 
-        // GET: Workouts/Delete/5
+        // GET: DayPlanners/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Workout workout = db.Workouts.Find(id);
-            if (workout == null)
+            DayPlanner dayPlanner = db.DayPlanners.Find(id);
+            if (dayPlanner == null)
             {
                 return HttpNotFound();
             }
-            return View(workout);
+            return View(dayPlanner);
         }
 
-        // POST: Workouts/Delete/5
+        // POST: DayPlanners/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Workout workout = db.Workouts.Find(id);
-            db.Workouts.Remove(workout);
+            DayPlanner dayPlanner = db.DayPlanners.Find(id);
+            db.DayPlanners.Remove(dayPlanner);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

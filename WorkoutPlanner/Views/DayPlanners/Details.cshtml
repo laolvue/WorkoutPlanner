@@ -1,0 +1,42 @@
+﻿@model WorkoutPlanner.Models.DayPlanner
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DayPlanner</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Workout.workoutName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Workout.workoutName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.startAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.startAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.endAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.endAt)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.dayPlannerId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

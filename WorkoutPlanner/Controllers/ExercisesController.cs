@@ -17,7 +17,8 @@ namespace WorkoutPlanner.Controllers
         // GET: Exercises
         public ActionResult Index()
         {
-            return View(db.Exercises.ToList());
+            var exercises = db.Exercises.Include(e => e.Muscle);
+            return View(exercises.ToList());
         }
 
         // GET: Exercises/Details/5
@@ -38,6 +39,7 @@ namespace WorkoutPlanner.Controllers
         // GET: Exercises/Create
         public ActionResult Create()
         {
+            ViewBag.muscleId = new SelectList(db.Muscles, "muscleId", "muscleName");
             return View();
         }
 
@@ -46,7 +48,7 @@ namespace WorkoutPlanner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "exerciseId,exerciseName")] Exercise exercise)
+        public ActionResult Create([Bind(Include = "exerciseId,exerciseName,muscleId")] Exercise exercise)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +57,7 @@ namespace WorkoutPlanner.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.muscleId = new SelectList(db.Muscles, "muscleId", "muscleName", exercise.muscleId);
             return View(exercise);
         }
 
@@ -70,6 +73,7 @@ namespace WorkoutPlanner.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.muscleId = new SelectList(db.Muscles, "muscleId", "muscleName", exercise.muscleId);
             return View(exercise);
         }
 
@@ -78,7 +82,7 @@ namespace WorkoutPlanner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "exerciseId,exerciseName")] Exercise exercise)
+        public ActionResult Edit([Bind(Include = "exerciseId,exerciseName,muscleId")] Exercise exercise)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +90,7 @@ namespace WorkoutPlanner.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.muscleId = new SelectList(db.Muscles, "muscleId", "muscleName", exercise.muscleId);
             return View(exercise);
         }
 

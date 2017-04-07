@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<h2>Schedular App</h2>
+@* HTML *@
+<div ng-app="WorkoutPlans" ng-controller="myNgController">
+    <div class="row">
+        <div class="col-md-10">
+            <div id="calendar" ui-calendar="uiConfig.calendar" ng-model="eventSources" calendar="myCalendar"></div>
+        </div>
+        <div class="col-md-2">
+            <div ng-show="SelectedEvent" class="alert alert-success" style="margin-top:50px">
+                <h2 style="margin-top:0px"> Selected Event:</h2>
+                <h3 style="color:#A9A50E">{{SelectedEvent.title}}</h3>
+                <p>{{SelectedEvent.description}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* CSS *@
+<link href="~/Content/fullcalendar.css" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+@* JS *@
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/jquery-1.11.3.js"></script>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/calendar.js"></script>
+<script src="~/Scripts/fullcalendar.js"></script>
+<script src="~/Scripts/gcal.js"></script>
+@* OUR ANGULAR COMPONENTs *@
+<script src="~/Scripts/WorkoutPlans.js"></script>

@@ -80,6 +80,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -196,12 +198,18 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CalendarController.cs" />
+    <Compile Include="Controllers\DayPlannersController.cs" />
+    <Compile Include="Controllers\EventfulsController.cs" />
     <Compile Include="Controllers\ExercisesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MusclesController.cs" />
     <Compile Include="Controllers\UserInfoesController.cs" />
     <Compile Include="Controllers\WorkoutsController.cs" />
+    <Compile Include="Eventfulz.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -217,8 +225,45 @@
     <Compile Include="Migrations\201704062122549_added workouts table.Designer.cs">
       <DependentUpon>201704062122549_added workouts table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704062148205_added eventful table.cs" />
+    <Compile Include="Migrations\201704062148205_added eventful table.Designer.cs">
+      <DependentUpon>201704062148205_added eventful table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704071434250_altered workout table.cs" />
+    <Compile Include="Migrations\201704071434250_altered workout table.Designer.cs">
+      <DependentUpon>201704071434250_altered workout table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704071440594_added dayplanner table.cs" />
+    <Compile Include="Migrations\201704071440594_added dayplanner table.Designer.cs">
+      <DependentUpon>201704071440594_added dayplanner table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704071454422_added foreginkey to exercise table, removed foreignkey from workout table.cs" />
+    <Compile Include="Migrations\201704071454422_added foreginkey to exercise table, removed foreignkey from workout table.Designer.cs">
+      <DependentUpon>201704071454422_added foreginkey to exercise table, removed foreignkey from workout table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704071522255_added workoutName to workout table.cs" />
+    <Compile Include="Migrations\201704071522255_added workoutName to workout table.Designer.cs">
+      <DependentUpon>201704071522255_added workoutName to workout table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DayPlanner.cs" />
+    <Compile Include="Models\Eventful.cs" />
     <Compile Include="Models\Exercise.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -231,26 +276,51 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\fullcalendar.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
+    <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EntityDeploy Include="Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\calendar.js" />
+    <Content Include="Scripts\fullcalendar.js" />
+    <Content Include="Scripts\gcal.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.11.3.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\WorkoutPlans.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -296,6 +366,17 @@
     <Content Include="Views\Muscles\Details.cshtml" />
     <Content Include="Views\Muscles\Edit.cshtml" />
     <Content Include="Views\Muscles\Index.cshtml" />
+    <Content Include="Views\Calendar\Index.cshtml" />
+    <Content Include="Views\Eventfuls\Create.cshtml" />
+    <Content Include="Views\Eventfuls\Delete.cshtml" />
+    <Content Include="Views\Eventfuls\Details.cshtml" />
+    <Content Include="Views\Eventfuls\Edit.cshtml" />
+    <Content Include="Views\Eventfuls\Index.cshtml" />
+    <Content Include="Views\DayPlanners\Create.cshtml" />
+    <Content Include="Views\DayPlanners\Delete.cshtml" />
+    <Content Include="Views\DayPlanners\Details.cshtml" />
+    <Content Include="Views\DayPlanners\Edit.cshtml" />
+    <Content Include="Views\DayPlanners\Index.cshtml" />
     <Content Include="Views\Exercises\Create.cshtml" />
     <Content Include="Views\Exercises\Delete.cshtml" />
     <Content Include="Views\Exercises\Details.cshtml" />
@@ -328,6 +409,24 @@
     <EmbeddedResource Include="Migrations\201704062122549_added workouts table.resx">
       <DependentUpon>201704062122549_added workouts table.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704062148205_added eventful table.resx">
+      <DependentUpon>201704062148205_added eventful table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704071434250_altered workout table.resx">
+      <DependentUpon>201704071434250_altered workout table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704071440594_added dayplanner table.resx">
+      <DependentUpon>201704071440594_added dayplanner table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704071454422_added foreginkey to exercise table, removed foreignkey from workout table.resx">
+      <DependentUpon>201704071454422_added foreginkey to exercise table, removed foreignkey from workout table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704071522255_added workoutName to workout table.resx">
+      <DependentUpon>201704071522255_added workoutName to workout table.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -347,7 +446,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>35141</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:35141/</IISUrl>
+          <IISUrl>http://localhost:35171/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
