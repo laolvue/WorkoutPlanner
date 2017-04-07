@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -131,6 +133,88 @@ namespace WorkoutPlanner.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult AddImage()
+        {
+            ProfilePicture profilePicture = new ProfilePicture();
+            return View(profilePicture);
+        }
+
+        [HttpPost]
+        public ActionResult AddImage(ProfilePicture model, HttpPostedFileBase image1)
+        {
+            if (image1 != null)
+            {
+                model.profileImage = new byte[image1.ContentLength];
+                image1.InputStream.Read(model.profileImage, 0, image1.ContentLength);
+            }
+            var loggedInUser = from a in db.UserInfos
+                               where a.email == User.Identity.Name
+                               select a.userId;
+            int userId = 0;
+            foreach(var item in loggedInUser)
+            {
+                userId = item;
+            }
+            model.userId = userId;
+            db.ProfilePictures.Add(model);
+            db.SaveChanges();
+            return View(model);
+        }
+
+        public ActionResult ProfilePage()
+        {
+            var userId = from a in db.UserInfos
+                         where a.email == User.Identity.Name
+                         select a.userId;
+            int temporaryUserId=0;
+            foreach(var item in userId)
+            {
+                temporaryUserId = item;
+            }
+            List < ProfilePicture > images = GetImages();
+
+            ProfilePicture imageFile = new ProfilePicture();
+            foreach(var item in images)
+            {
+                if (item.userId == temporaryUserId)
+                {
+                    imageFile = item;
+                }
+            }
+            ViewBag.Base64String = "data:image/png;base64," + Convert.ToBase64String(imageFile.profileImage, 0, imageFile.profileImage.Length);
+            return View(imageFile);
+        }
+
+        private List<ProfilePicture> GetImages()
+        {
+            string query = "SELECT * FROM ProfilePictures";
+            List<ProfilePicture> images = new List<ProfilePicture>();
+            string constr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                using (SqlCommand cmd = new SqlCommand(query))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Connection = con;
+                    con.Open();
+                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            images.Add(new ProfilePicture
+                            {
+                                profileImage = (byte[])sdr["profileImage"],
+                                userId = (int)sdr["userId"]
+                            });
+                        }
+                    }
+                    con.Close();
+                }
+
+                return images;
+            }
         }
     }
 }
