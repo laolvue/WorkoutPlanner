@@ -13,10 +13,10 @@ namespace WorkoutPlanner
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class WorkoutPlans : DbContext
+    public partial class CalendarEvent : DbContext
     {
-        public WorkoutPlans()
-            : base("name=WorkoutPlans")
+        public CalendarEvent()
+            : base("name=CalendarEvent")
         {
         }
     

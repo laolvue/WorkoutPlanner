@@ -11,5 +11,7 @@ namespace WorkoutPlanner.Models
         [Key]
         public int muscleId { get; set; }
         public string muscleName { get; set; }
+        public string userEmail { get; set; }
+
     }
 }

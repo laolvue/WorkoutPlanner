@@ -148,18 +148,41 @@ namespace WorkoutPlanner.Controllers
             {
                 model.profileImage = new byte[image1.ContentLength];
                 image1.InputStream.Read(model.profileImage, 0, image1.ContentLength);
+                
             }
-            var loggedInUser = from a in db.UserInfos
-                               where a.email == User.Identity.Name
-                               select a.userId;
-            int userId = 0;
-            foreach(var item in loggedInUser)
+
+            using (var dbz = new ApplicationDbContext())
             {
-                userId = item;
+                var loggedInUser = from a in dbz.UserInfos
+                                   where a.email == User.Identity.Name
+                                   select a.userId;
+                int userId = 0;
+                foreach (var item in loggedInUser)
+                {
+                    model.userId = item;
+                }
+                var duplicateTest = from b in dbz.ProfilePictures
+                                    where b.userId == model.userId
+                                    select b;
+
+
+                if (duplicateTest.ToList().Count == 0)
+                {
+                    dbz.ProfilePictures.Add(model);
+                    dbz.SaveChanges();
+                }
+                else
+                {
+                    foreach (var item in dbz.ProfilePictures.ToList())
+                    {
+                        if (item.userId == model.userId)
+                        {
+                            item.profileImage = model.profileImage;
+                            dbz.SaveChanges();
+                        }
+                    }
+                }
             }
-            model.userId = userId;
-            db.ProfilePictures.Add(model);
-            db.SaveChanges();
             return View(model);
         }
 

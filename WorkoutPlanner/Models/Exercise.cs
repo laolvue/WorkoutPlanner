@@ -15,6 +15,7 @@ namespace WorkoutPlanner.Models
         [ForeignKey("Muscle")]
         public int muscleId { get; set; }
         public Muscle Muscle { get; set; }
+        public string userEmail { get; set; }
 
     }
 }

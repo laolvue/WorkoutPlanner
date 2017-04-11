@@ -50,7 +50,12 @@ namespace WorkoutPlanner.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Muscles.Add(muscle);
+                Muscle muscles = new Muscle
+                {
+                    muscleName = muscle.muscleName,
+                    userEmail = User.Identity.Name
+                };
+                db.Muscles.Add(muscles);
                 db.SaveChanges();
                 return RedirectToAction("Create","Exercises");
             }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -18,5 +19,6 @@ namespace WorkoutPlanner.Models
         [Display(Name = "End Day")]
         public DateTime EndAt { get; set; }
         public string IsFullDay { get; set; }
+        public string userEmail { get; set; }
     }
 }

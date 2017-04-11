@@ -52,7 +52,13 @@ namespace WorkoutPlanner.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Exercises.Add(exercise);
+                Exercise exercises = new Exercise
+                {
+                    exerciseName = exercise.exerciseName,
+                    muscleId = exercise.muscleId,
+                    userEmail = User.Identity.Name
+                };
+                db.Exercises.Add(exercises);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

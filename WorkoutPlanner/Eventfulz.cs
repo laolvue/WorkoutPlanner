@@ -19,6 +19,7 @@ namespace WorkoutPlanner
         public string Description { get; set; }
         public System.DateTime StartAt { get; set; }
         public System.DateTime EndAt { get; set; }
-        public string IsFullDay { get; set; }
+        public Nullable<bool> IsFullDay { get; set; }
+        public string userEmail { get; set; }
     }
 }

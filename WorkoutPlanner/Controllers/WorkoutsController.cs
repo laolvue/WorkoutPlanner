@@ -59,7 +59,16 @@ namespace WorkoutPlanner.Controllers
                 {
                     workout.workoutName = item;
                 }
-                db.Workouts.Add(workout);
+
+                Workout workouts = new Workout
+                {
+                    workoutName = workout.workoutName,
+                    exerciseId = workout.exerciseId,
+                    sets = workout.sets,
+                    reps = workout.reps,
+                    userEmail = User.Identity.Name
+                };
+                db.Workouts.Add(workouts);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

@@ -17,5 +17,7 @@ namespace WorkoutPlanner.Models
         public Exercise Exercise { get; set; }
         public int sets { get; set; }
         public int reps { get; set; }
+        public string userEmail { get; set; }
+
     }
 }

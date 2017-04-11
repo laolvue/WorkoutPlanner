@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Eventfuls">
           <Key>
             <PropertyRef Name="Id" />
@@ -14,16 +14,17 @@
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="StartAt" Type="datetime" Nullable="false" />
           <Property Name="EndAt" Type="datetime" Nullable="false" />
-          <Property Name="IsFullDay" Type="nvarchar(max)" />
+          <Property Name="IsFullDay" Type="bit" />
+          <Property Name="userEmail" Type="nvarchar(max)" />
         </EntityType>
-        <EntityContainer Name="Model1StoreContainer">
+        <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Eventfuls" EntityType="Self.Eventfuls" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Model1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Eventfulz">
           <Key>
             <PropertyRef Name="Id" />
@@ -33,19 +34,20 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="StartAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EndAt" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IsFullDay" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsFullDay" Type="Boolean" />
+          <Property Name="userEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="WorkoutPlans" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Eventfulzs" EntityType="Model1.Eventfulz" />
+        <EntityContainer Name="CalendarEvent" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Eventfulzs" EntityType="Model.Eventfulz" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="WorkoutPlans">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="CalendarEvent">
           <EntitySetMapping Name="Eventfulzs">
-            <EntityTypeMapping TypeName="Model1.Eventfulz">
+            <EntityTypeMapping TypeName="Model.Eventfulz">
               <MappingFragment StoreEntitySet="Eventfuls">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -53,6 +55,7 @@
                 <ScalarProperty Name="StartAt" ColumnName="StartAt" />
                 <ScalarProperty Name="EndAt" ColumnName="EndAt" />
                 <ScalarProperty Name="IsFullDay" ColumnName="IsFullDay" />
+                <ScalarProperty Name="userEmail" ColumnName="userEmail" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

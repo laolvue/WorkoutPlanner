@@ -17,9 +17,13 @@ namespace WorkoutPlanner.Controllers
         public JsonResult GetEvents()
         {
             //Here MyDatabaseEntities is our entity datacontext (see Step 4)
-            using (WorkoutPlans dc = new WorkoutPlans())
+            using (CalendarEvent dc = new CalendarEvent())
             {
-                var v = dc.Eventfulzs.OrderBy(a => a.StartAt).ToList();
+                var userEvents = from a in dc.Eventfulzs
+                                 where a.userEmail == User.Identity.Name
+                                 select a;
+
+                var v = userEvents.OrderBy(a => a.StartAt).ToList();
                 return new JsonResult { Data = v, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
