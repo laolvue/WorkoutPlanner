@@ -39,7 +39,18 @@ namespace WorkoutPlanner.Controllers
         // GET: Workouts/Create
         public ActionResult Create()
         {
-            ViewBag.exerciseId = new SelectList(db.Exercises, "exerciseId", "exerciseName");
+            List<SelectListItem> dayName = new List<SelectListItem>();
+            dayName.Add(new SelectListItem { Text = "Mondays", Value = "1" });
+            dayName.Add(new SelectListItem { Text = "Tuesdays", Value = "2" });
+            dayName.Add(new SelectListItem { Text = "Wednesdays", Value = "3" });
+            dayName.Add(new SelectListItem { Text = "Thursdays", Value = "4" });
+            dayName.Add(new SelectListItem { Text = "Fridays", Value = "5" });
+            dayName.Add(new SelectListItem { Text = "Saturday", Value = "6" });
+            dayName.Add(new SelectListItem { Text = "Sunday", Value = "7" });
+
+            ViewData["dayName"] = dayName;
+
+            ViewBag.exerciseID = new SelectList(db.Exercises, "exerciseId", "exerciseName");
             return View();
         }
 
@@ -48,31 +59,23 @@ namespace WorkoutPlanner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "workoutId,workoutName,exerciseId,sets,reps")] Workout workout)
+        public ActionResult Create([Bind(Include = "workoutId,workoutName,notes,exerciseID,set,rep,userEmail,day,workoutImage")] Workout workout, HttpPostedFileBase image1)
         {
+            if (image1 != null)
+            {
+                workout.workoutImage = new byte[image1.ContentLength];
+                image1.InputStream.Read(workout.workoutImage, 0, image1.ContentLength);
+            }
+
             if (ModelState.IsValid)
             {
-                var workoutName = from a in db.Exercises
-                                  where a.exerciseId == workout.exerciseId
-                                  select a.exerciseName;
-                foreach(var item in workoutName.ToList())
-                {
-                    workout.workoutName = item;
-                }
-
-                Workout workouts = new Workout
-                {
-                    workoutName = workout.workoutName,
-                    exerciseId = workout.exerciseId,
-                    sets = workout.sets,
-                    reps = workout.reps,
-                    userEmail = User.Identity.Name
-                };
-                db.Workouts.Add(workouts);
+                workout.userEmail = User.Identity.Name;
+                db.Workouts.Add(workout);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.exerciseId = new SelectList(db.Exercises, "exerciseId", "exerciseName", workout.exerciseId);
+
+            ViewBag.exerciseID = new SelectList(db.Exercises, "exerciseId", "exerciseName", workout.exerciseID);
             return View(workout);
         }
 
@@ -88,7 +91,7 @@ namespace WorkoutPlanner.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.exerciseId = new SelectList(db.Exercises, "exerciseId", "exerciseName", workout.exerciseId);
+            ViewBag.exerciseID = new SelectList(db.Exercises, "exerciseId", "exerciseName", workout.exerciseID);
             return View(workout);
         }
 
@@ -97,7 +100,7 @@ namespace WorkoutPlanner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "workoutId,workoutName,exerciseId,sets,reps")] Workout workout)
+        public ActionResult Edit([Bind(Include = "workoutId,workoutName,notes,exerciseID,set,rep,userEmail,day,workoutImage")] Workout workout)
         {
             if (ModelState.IsValid)
             {
@@ -105,7 +108,7 @@ namespace WorkoutPlanner.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.exerciseId = new SelectList(db.Exercises, "exerciseId", "exerciseName", workout.exerciseId);
+            ViewBag.exerciseID = new SelectList(db.Exercises, "exerciseId", "exerciseName", workout.exerciseID);
             return View(workout);
         }
 

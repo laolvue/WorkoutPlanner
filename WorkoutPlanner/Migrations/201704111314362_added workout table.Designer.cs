@@ -7,13 +7,13 @@ namespace WorkoutPlanner.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class addeddayplannertable : IMigrationMetadata
+    public sealed partial class addedworkouttable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addeddayplannertable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addedworkouttable));
         
         string IMigrationMetadata.Id
         {
-            get { return "201704071440594_added dayplanner table"; }
+            get { return "201704111314362_added workout table"; }
         }
         
         string IMigrationMetadata.Source

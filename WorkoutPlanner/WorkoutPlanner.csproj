@@ -199,7 +199,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
-    <Compile Include="Controllers\DayPlannersController.cs" />
     <Compile Include="Controllers\EventfulsController.cs" />
     <Compile Include="Controllers\ExercisesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -213,49 +212,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201704062042588_added userinfo table.cs" />
-    <Compile Include="Migrations\201704062042588_added userinfo table.Designer.cs">
-      <DependentUpon>201704062042588_added userinfo table.cs</DependentUpon>
+    <Compile Include="Migrations\201704111259308_adding tables.cs" />
+    <Compile Include="Migrations\201704111259308_adding tables.Designer.cs">
+      <DependentUpon>201704111259308_adding tables.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201704062104535_added muscle and exercise tables.cs" />
-    <Compile Include="Migrations\201704062104535_added muscle and exercise tables.Designer.cs">
-      <DependentUpon>201704062104535_added muscle and exercise tables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704062122549_added workouts table.cs" />
-    <Compile Include="Migrations\201704062122549_added workouts table.Designer.cs">
-      <DependentUpon>201704062122549_added workouts table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704062148205_added eventful table.cs" />
-    <Compile Include="Migrations\201704062148205_added eventful table.Designer.cs">
-      <DependentUpon>201704062148205_added eventful table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704071434250_altered workout table.cs" />
-    <Compile Include="Migrations\201704071434250_altered workout table.Designer.cs">
-      <DependentUpon>201704071434250_altered workout table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704071440594_added dayplanner table.cs" />
-    <Compile Include="Migrations\201704071440594_added dayplanner table.Designer.cs">
-      <DependentUpon>201704071440594_added dayplanner table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704071454422_added foreginkey to exercise table, removed foreignkey from workout table.cs" />
-    <Compile Include="Migrations\201704071454422_added foreginkey to exercise table, removed foreignkey from workout table.Designer.cs">
-      <DependentUpon>201704071454422_added foreginkey to exercise table, removed foreignkey from workout table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704071522255_added workoutName to workout table.cs" />
-    <Compile Include="Migrations\201704071522255_added workoutName to workout table.Designer.cs">
-      <DependentUpon>201704071522255_added workoutName to workout table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704071709389_added profile picture table.cs" />
-    <Compile Include="Migrations\201704071709389_added profile picture table.Designer.cs">
-      <DependentUpon>201704071709389_added profile picture table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704102122430_added userEmail to eventful table.cs" />
-    <Compile Include="Migrations\201704102122430_added userEmail to eventful table.Designer.cs">
-      <DependentUpon>201704102122430_added userEmail to eventful table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704102143193_added email verification to tables.cs" />
-    <Compile Include="Migrations\201704102143193_added email verification to tables.Designer.cs">
-      <DependentUpon>201704102143193_added email verification to tables.cs</DependentUpon>
+    <Compile Include="Migrations\201704111314362_added workout table.cs" />
+    <Compile Include="Migrations\201704111314362_added workout table.Designer.cs">
+      <DependentUpon>201704111314362_added workout table.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model2.Context.cs">
@@ -274,7 +237,6 @@
       <DependentUpon>Model2.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\DayPlanner.cs" />
     <Compile Include="Models\Eventful.cs" />
     <Compile Include="Models\Exercise.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -386,23 +348,18 @@
     <Content Include="Views\Eventfuls\Details.cshtml" />
     <Content Include="Views\Eventfuls\Edit.cshtml" />
     <Content Include="Views\Eventfuls\Index.cshtml" />
-    <Content Include="Views\DayPlanners\Create.cshtml" />
-    <Content Include="Views\DayPlanners\Delete.cshtml" />
-    <Content Include="Views\DayPlanners\Details.cshtml" />
-    <Content Include="Views\DayPlanners\Edit.cshtml" />
-    <Content Include="Views\DayPlanners\Index.cshtml" />
     <Content Include="Views\Exercises\Create.cshtml" />
     <Content Include="Views\Exercises\Delete.cshtml" />
     <Content Include="Views\Exercises\Details.cshtml" />
     <Content Include="Views\Exercises\Edit.cshtml" />
     <Content Include="Views\Exercises\Index.cshtml" />
+    <Content Include="Views\UserInfoes\AddImage.cshtml" />
+    <Content Include="Views\UserInfoes\ProfilePage.cshtml" />
     <Content Include="Views\Workouts\Create.cshtml" />
     <Content Include="Views\Workouts\Delete.cshtml" />
     <Content Include="Views\Workouts\Details.cshtml" />
     <Content Include="Views\Workouts\Edit.cshtml" />
     <Content Include="Views\Workouts\Index.cshtml" />
-    <Content Include="Views\UserInfoes\AddImage.cshtml" />
-    <Content Include="Views\UserInfoes\ProfilePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -416,42 +373,15 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704062042588_added userinfo table.resx">
-      <DependentUpon>201704062042588_added userinfo table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704062104535_added muscle and exercise tables.resx">
-      <DependentUpon>201704062104535_added muscle and exercise tables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704062122549_added workouts table.resx">
-      <DependentUpon>201704062122549_added workouts table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704062148205_added eventful table.resx">
-      <DependentUpon>201704062148205_added eventful table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704071434250_altered workout table.resx">
-      <DependentUpon>201704071434250_altered workout table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704071440594_added dayplanner table.resx">
-      <DependentUpon>201704071440594_added dayplanner table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704071454422_added foreginkey to exercise table, removed foreignkey from workout table.resx">
-      <DependentUpon>201704071454422_added foreginkey to exercise table, removed foreignkey from workout table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704071522255_added workoutName to workout table.resx">
-      <DependentUpon>201704071522255_added workoutName to workout table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704071709389_added profile picture table.resx">
-      <DependentUpon>201704071709389_added profile picture table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704102122430_added userEmail to eventful table.resx">
-      <DependentUpon>201704102122430_added userEmail to eventful table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704102143193_added email verification to tables.resx">
-      <DependentUpon>201704102143193_added email verification to tables.cs</DependentUpon>
-    </EmbeddedResource>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <EmbeddedResource Include="Migrations\201704111259308_adding tables.resx">
+      <DependentUpon>201704111259308_adding tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704111314362_added workout table.resx">
+      <DependentUpon>201704111314362_added workout table.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
