@@ -1,22 +1,170 @@
-﻿@*@model IEnumerable<WorkoutPlanner.Models.Workout>
+﻿@model IEnumerable<WorkoutPlanner.Models.Workout>
 
 @{
     ViewBag.Title = "Index";
+    var i = 0;
+}
+@{
+    var prod = (List<string>)ViewData["workoutImages"];
+}
+@{
+    var prod6 = (List<SelectListItem>)ViewData["dayName"];
 }
 
-<h2>Workout for Saturday</h2>
+
+
+
+
 <div class="container">
     <div class="row">
-        <div class="col-md-10">
-            <p>hi</p>
+        <div class="col-md-1">
+            <h1></h1>
         </div>
     </div>
     <div class="row">
-        @*<div class="col-*-*"></div>
-        <div class="col-*-*"></div>
-        <div class="col-*-*"></div>*@
+        <div class="col-md-2">
+            <select id="day">
+                <option value="Select Specific Day">Select Specific Day</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+            </select>
+        </div>
+        <div class="col-md-offset-2">
+            <input type="button" id="btn" value="Go"/>
+        </div>
     </div>
     <div class="row">
-        @*...*@
+            <div class="col-md-12">
+
+                <h2>@ViewBag.Day</h2>
+
+            </div>
     </div>
-</div>*@
+
+    <div class="row">
+        <div class="col-md-4">
+            <h1></h1>
+        </div>
+        <div class="col-md-2">
+            <h4>Exercise</h4>
+        </div>
+        <div class="col-md-2">
+            <h4>Sets</h4>
+        </div>
+        <div class="col-md-2">
+            <h4>Reps</h4>
+        </div>
+        <div class="col-md-2">
+            <h4>Notes</h4>
+        </div>
+    </div>
+    <div class="row">
+        <hr>
+    </div>
+    @foreach (var item in Model)
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <img alt="" src="@prod[i]" style="height:200px;width:300px;" />
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayFor(modelItem => item.workoutName)
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayFor(modelItem => item.set)
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayFor(modelItem => item.rep)
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayFor(modelItem => item.notes)
+            </div>
+        </div>
+        <div class="row">
+            <hr>
+        </div>
+    }
+</div>
+
+
+<script src="~/Scripts/Workout.js"></script>
+
+
+@*<tr>
+        <h1></h1>
+    </tr>
+    <tr>
+        <th>
+            <h4></h4>
+        </th>
+        <th>
+            <h4>Exercise</h4>
+        <th>
+            <h4>Sets</h4>
+        </th>
+        <th>
+            <h4>Reps</h4>
+        </th>
+        <th>
+            <h4>Notes</h4>
+        </th>
+    </tr>*@
+@*<table class="table">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img alt="" src="@prod[i]" style="height:200px;width:300px;" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.workoutName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.set)
+                <td>
+                    @Html.DisplayFor(modelItem => item.rep)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.notes)
+                </td>
+            </tr>
+            i++;
+        }
+    </table>*@
+
+
+@*<div class="row">
+        <div class="col-md-4">
+            <img alt="" src="@prod[i]" style="height:200px;width:300px;" />
+        </div>
+        <div class="col-md-2">
+            @Html.DisplayFor(modelItem => item.workoutName)
+        </div>
+        <div class="col-md-2">
+            @Html.DisplayFor(modelItem => item.set)
+        </div>
+        <div class="col-md-2">
+            @Html.DisplayFor(modelItem => item.rep)
+        </div>
+        <div class="col-md-2">
+            @Html.DisplayFor(modelItem => item.notes)
+        </div>
+    </div>
+    <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Muscle.muscleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.exerciseName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.exerciseId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.exerciseId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.exerciseId })
+            </td>
+        </tr>*@

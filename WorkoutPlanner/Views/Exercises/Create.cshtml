@@ -1,21 +1,21 @@
 ﻿@model WorkoutPlanner.Models.Exercise
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create An Exercise";
 }
 
-<h2>Create</h2>
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Exercise</h4>
+        <h4>Add an exercise to your workout</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.muscleId, "muscleId", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.muscleId, "Muscles Working On:", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
                 @Html.DropDownList("muscleId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.muscleId, "", new { @class = "text-danger" })
@@ -26,10 +26,13 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.exerciseName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.exerciseName, "Exercise Name:", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.exerciseName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.exerciseName, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-5">
+                <p><b>Instructions:</b> Choose the muscle that corresponds with your exercise. If the muscle does not exist, click the "Add muscle" link above to add the muscle first. Then enter the exercise name.</p>
             </div>
         </div>
         <div class="form-group">
@@ -39,7 +42,3 @@
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

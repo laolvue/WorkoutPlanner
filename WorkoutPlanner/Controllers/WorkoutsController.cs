@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -14,11 +16,116 @@ namespace WorkoutPlanner.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Workouts
-        public ActionResult Index()
+
+        //get images
+        private List<Workout> GetImages()
         {
-            var workouts = db.Workouts.Include(w => w.Exercise);
-            return View(workouts.ToList());
+            string query = "SELECT * FROM Workouts";
+            List<Workout> images = new List<Workout>();
+            string constr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                using (SqlCommand cmd = new SqlCommand(query))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Connection = con;
+                    con.Open();
+                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            images.Add(new Workout
+                            {
+                                workoutImage = (byte[])sdr["workoutImage"],
+                                workoutName = (string)sdr["workoutName"],
+                                notes = (string)sdr["notes"],
+                                set = (int)sdr["set"],
+                                rep = (int)sdr["rep"],
+                                exerciseID = (int)sdr["exerciseID"],
+                                userEmail = (string)sdr["userEmail"],
+                                day = (string)sdr["day"]
+                            });
+                        }
+                    }
+                    con.Close();
+                }
+                return images;
+            }
+        }
+
+        public DayOfWeek getDay(Workout workout)
+        {
+            var dayOfWeek = DayOfWeek.Monday;
+            switch (workout.day)
+            {
+                case "1":
+                    return dayOfWeek = DayOfWeek.Monday;
+                case "2":
+                    return dayOfWeek = DayOfWeek.Tuesday;
+                case "3":
+                    return dayOfWeek = DayOfWeek.Wednesday;
+                case "4":
+                    return dayOfWeek = DayOfWeek.Thursday;
+                case "5":
+                    return dayOfWeek = DayOfWeek.Friday;
+                case "6":
+                    return dayOfWeek = DayOfWeek.Saturday;
+                case "7":
+                    return dayOfWeek = DayOfWeek.Sunday;
+            }
+
+            return dayOfWeek;
+        }
+
+
+        // GET: Workouts
+        public ActionResult Index(int? id)
+        {
+            var dayChose = DayOfWeek.Monday;
+            switch (id)
+            {
+                case null: dayChose= DateTime.UtcNow.DayOfWeek;
+                    break;
+                case 1: dayChose = DateTime.UtcNow.DayOfWeek;
+                    break;
+                case 2: dayChose = DayOfWeek.Monday;
+                    break;
+                case 3: dayChose = DayOfWeek.Tuesday;
+                    break;
+                case 4: dayChose = DayOfWeek.Wednesday;
+                    break;
+                case 5: dayChose = DayOfWeek.Thursday;
+                    break;
+                case 6: dayChose = DayOfWeek.Friday;
+                    break;
+                case 7: dayChose = DayOfWeek.Saturday;
+                    break;
+                case 8: dayChose = DayOfWeek.Sunday;
+                    break;
+                
+            }
+            List<string> workoutImages = new List<string>();
+            List<Workout> images = GetImages();
+            var workout = from a in images
+                           where a.userEmail == User.Identity.Name
+                           select a;
+            var dayOfWeek = DayOfWeek.Monday;
+            List<Workout> workouts = new List<Workout>();
+
+            foreach(var item in workout.ToList())
+            {
+                dayOfWeek = getDay(item);
+
+                if(dayOfWeek == dayChose)
+                {
+                    workouts.Add(item);
+                    var image = "data:image/png;base64," + Convert.ToBase64String(item.workoutImage, 0, item.workoutImage.Length);
+                    workoutImages.Add(image);
+                }
+            }
+            ViewData["workoutImages"] = workoutImages;
+            ViewBag.Day = $"{dayChose}";
+            return View(workouts);
         }
 
         // GET: Workouts/Details/5
@@ -69,6 +176,15 @@ namespace WorkoutPlanner.Controllers
 
             if (ModelState.IsValid)
             {
+                var exerciseName = from a in db.Exercises
+                                   where a.exerciseId == workout.exerciseID
+                                   select a.exerciseName;
+                var exercise = "";
+                foreach(var item in exerciseName.ToList())
+                {
+                    exercise = item;
+                }
+                workout.workoutName = exercise;
                 workout.userEmail = User.Identity.Name;
                 db.Workouts.Add(workout);
                 db.SaveChanges();

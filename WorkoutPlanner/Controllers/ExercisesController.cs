@@ -60,7 +60,7 @@ namespace WorkoutPlanner.Controllers
                 };
                 db.Exercises.Add(exercises);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create","Workouts");
             }
 
             ViewBag.muscleId = new SelectList(db.Muscles, "muscleId", "muscleName", exercise.muscleId);
