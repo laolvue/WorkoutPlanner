@@ -15,6 +15,7 @@ namespace WorkoutPlanner.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -25,6 +26,43 @@ namespace WorkoutPlanner.Controllers
             UserManager = userManager;
             SignInManager = signInManager;
         }
+
+        public ActionResult ChangeEmail()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ChangeEmail(UserInfo model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            if (user != null)
+            {
+                var loggedInUser = from a in db.UserInfos
+                                   where a.email == User.Identity.Name
+                                   select a;
+                foreach (var item in loggedInUser)
+                {
+                    item.email = model.email;
+                }
+                db.SaveChanges();
+
+                user.Email = model.email;
+                user.UserName = model.email;
+                await UserManager.UpdateAsync(user);
+                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+            }
+            return RedirectToAction("ProfilePage","UserInfoes");
+        }
+
+
+
+
 
         public ApplicationSignInManager SignInManager
         {

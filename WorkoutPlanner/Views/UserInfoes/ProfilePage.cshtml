@@ -1,13 +1,90 @@
-﻿
+﻿@model WorkoutPlanner.Models.UserInfo
+
 @{
     ViewBag.Title = "ProfilePage";
+    var prod = (List<string>)ViewData["userInfo"];
 }
 
-<h2>ProfilePage</h2>
-
-<img alt="" src="@ViewBag.Base64String" style="height:100px;width:100px;" />
-
-<dt>Password:</dt>
-<dd>
-        @Html.ActionLink("Change your password", "ChangePassword","Manage")
-</dd>
+<h2>Personal Information</h2>
+<div class="container">
+    <div class="row">
+        <img alt="" src="@ViewBag.Base64String" style="height:200px;width:200px;" />
+    </div>
+    <div class="row">
+        <p></p>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <p><b>First Name:</b></p>
+        </div>
+        <div class="col-md-4">
+            <p>@prod[1]</p>
+        </div>
+        <div class="col-md-4">
+            @Html.ActionLink("Edit", "ChangePassword", "Manage")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <p><b>Last Name:</b></p>
+        </div>
+        <div class="col-md-4">
+            <p>@prod[2]</p>
+        </div>
+        <div class="col-md-4">
+            @Html.ActionLink("Edit", "ChangePassword", "Manage")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <p><b>Age:</b></p>
+        </div>
+        <div class="col-md-4">
+            <p>@prod[5] years old</p>
+        </div>
+        <div class="col-md-4">
+            @Html.ActionLink("Edit", "ChangePassword", "Manage")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <p><b>Height:</b></p>
+        </div>
+        <div class="col-md-4">
+            <p>@prod[3]</p>
+        </div>
+        <div class="col-md-4">
+            @Html.ActionLink("Edit", "ChangePassword", "Manage")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <p><b>Weight:</b></p>
+        </div>
+        <div class="col-md-4">
+            <p>@prod[4] lbs</p>
+        </div>
+        <div class="col-md-4">
+            @Html.ActionLink("Edit", "ChangePassword", "Manage")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <p><b>Email:</b></p>
+        </div>
+        <div class="col-md-4">
+            <p>@prod[0]</p>
+        </div>
+        <div class="col-md-4">
+            @Html.ActionLink("Edit", "ChangeEmail", "Manage")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <p><b>Password:</b></p>
+        </div>
+        <div class="col-md-6">
+            @Html.ActionLink("Change your password", "ChangePassword", "Manage")
+        </div>
+    </div>
+</div>

@@ -207,7 +207,21 @@ namespace WorkoutPlanner.Controllers
                 }
             }
             ViewBag.Base64String = "data:image/png;base64," + Convert.ToBase64String(imageFile.profileImage, 0, imageFile.profileImage.Length);
-            return View(imageFile);
+            var userInfo = from b in db.UserInfos
+                           where b.email == User.Identity.Name
+                           select b;
+            List<string> userInfos = new List<string>();
+            foreach(var item in userInfo.ToList())
+            {
+                userInfos.Add(item.email);
+                userInfos.Add(item.firstName);
+                userInfos.Add(item.lastName);
+                userInfos.Add(item.height.ToString());
+                userInfos.Add(item.weight.ToString());
+                userInfos.Add(item.age.ToString());
+            }
+            ViewData["userInfo"] = userInfos;
+            return View();
         }
 
         private List<ProfilePicture> GetImages()

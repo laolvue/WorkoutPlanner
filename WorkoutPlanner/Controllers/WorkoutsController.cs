@@ -156,8 +156,11 @@ namespace WorkoutPlanner.Controllers
             dayName.Add(new SelectListItem { Text = "Sunday", Value = "7" });
 
             ViewData["dayName"] = dayName;
+            var exercise = from a in db.Exercises
+                                       where a.userEmail == User.Identity.Name
+                                       select a;
 
-            ViewBag.exerciseID = new SelectList(db.Exercises, "exerciseId", "exerciseName");
+            ViewBag.exerciseID = new SelectList(exercise, "exerciseId", "exerciseName");
             return View();
         }
 
@@ -173,7 +176,6 @@ namespace WorkoutPlanner.Controllers
                 workout.workoutImage = new byte[image1.ContentLength];
                 image1.InputStream.Read(workout.workoutImage, 0, image1.ContentLength);
             }
-
             if (ModelState.IsValid)
             {
                 var exerciseName = from a in db.Exercises

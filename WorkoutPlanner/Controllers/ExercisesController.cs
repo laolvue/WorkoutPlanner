@@ -39,7 +39,10 @@ namespace WorkoutPlanner.Controllers
         // GET: Exercises/Create
         public ActionResult Create()
         {
-            ViewBag.muscleId = new SelectList(db.Muscles, "muscleId", "muscleName");
+            var muscle = from a in db.Muscles
+                           where a.userEmail == User.Identity.Name
+                           select a;
+            ViewBag.muscleId = new SelectList(muscle, "muscleId", "muscleName");
             return View();
         }
 
