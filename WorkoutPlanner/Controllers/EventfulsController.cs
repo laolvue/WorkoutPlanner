@@ -270,5 +270,11 @@ namespace WorkoutPlanner.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        public ActionResult ViewMap()
+        {
+            return View();
+        }
     }
 }

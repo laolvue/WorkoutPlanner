@@ -390,6 +390,7 @@
     <Content Include="Views\UserPosts\Index.cshtml" />
     <Content Include="Views\UserInfoes\ViewUserProfile.cshtml" />
     <Content Include="Views\UserInfoes\SearchUser.cshtml" />
+    <Content Include="Views\Eventfuls\ViewMap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
