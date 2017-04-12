@@ -51,8 +51,37 @@ namespace WorkoutPlanner.Controllers
             ViewData["userInfo"] = GetUserInfo();
             string quote = getQuote(temporaryUserId)[0].quote;
             ViewData["userQuote"] = quote;
+            ViewData["userPost"] = getPost(temporaryUserId);
+            ViewData["postTime"] = getPostDate(temporaryUserId);
 
             return View();
+        }
+
+        public List<string> getPostDate(int userId)
+        {
+            var post = from a in db.UserPosts
+                       where a.userId == userId
+                       select a;
+            List<string> postDate = new List<string>();
+            foreach (var item in post.ToList())
+            {
+                postDate.Add(item.time.ToString());
+            }
+            return (postDate);
+        }
+
+        public List<string> getPost(int userId)
+        {
+            var post = from a in db.UserPosts
+                        where a.userId == userId
+                        select a;
+            List<string> userPosts = new List<string>();
+
+            foreach (var item in post.ToList())
+            {
+                userPosts.Add(item.message);
+            }
+            return (userPosts);
         }
 
         public List<UserQuote> getQuote(int userId)

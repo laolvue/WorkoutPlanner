@@ -32,6 +32,11 @@ namespace WorkoutPlanner.Controllers
             return View();
         }
 
+        public ActionResult ChangeEmail()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<ActionResult> ChangeEmail(UserInfo model)
         {
@@ -45,7 +50,16 @@ namespace WorkoutPlanner.Controllers
                 var loggedInUser = from a in db.UserInfos
                                    where a.email == User.Identity.Name
                                    select a;
-                foreach (var item in loggedInUser)
+                var calendarEmail = from b in db.Eventfuls
+                                    where b.userEmail == User.Identity.Name
+                                    select b;
+                foreach(var item in calendarEmail.ToList())
+                {
+                    item.userEmail = model.email;
+                }
+                
+
+                foreach (var item in loggedInUser.ToList())
                 {
                     item.email = model.email;
                 }
