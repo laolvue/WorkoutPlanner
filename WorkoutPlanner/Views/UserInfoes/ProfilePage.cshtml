@@ -21,7 +21,7 @@
             <p>@prod[1]</p>
         </div>
         <div class="col-md-4">
-            @Html.ActionLink("Edit", "ChangePassword", "Manage")
+            @Html.ActionLink("Edit Personal Info", "Edit", "UserInfoes", new { id = prod[6] }, null)
         </div>
     </div>
     <div class="row">
@@ -31,9 +31,6 @@
         <div class="col-md-4">
             <p>@prod[2]</p>
         </div>
-        <div class="col-md-4">
-            @Html.ActionLink("Edit", "ChangePassword", "Manage")
-        </div>
     </div>
     <div class="row">
         <div class="col-md-4">
@@ -41,9 +38,6 @@
         </div>
         <div class="col-md-4">
             <p>@prod[5] years old</p>
-        </div>
-        <div class="col-md-4">
-            @Html.ActionLink("Edit", "ChangePassword", "Manage")
         </div>
     </div>
     <div class="row">
@@ -53,9 +47,6 @@
         <div class="col-md-4">
             <p>@prod[3]</p>
         </div>
-        <div class="col-md-4">
-            @Html.ActionLink("Edit", "ChangePassword", "Manage")
-        </div>
     </div>
     <div class="row">
         <div class="col-md-4">
@@ -63,9 +54,6 @@
         </div>
         <div class="col-md-4">
             <p>@prod[4] lbs</p>
-        </div>
-        <div class="col-md-4">
-            @Html.ActionLink("Edit", "ChangePassword", "Manage")
         </div>
     </div>
     <div class="row">
@@ -76,15 +64,24 @@
             <p>@prod[0]</p>
         </div>
         <div class="col-md-4">
-            @Html.ActionLink("Edit", "ChangeEmail", "Manage")
+            @Html.ActionLink("Change Email", "ChangeEmail", "Manage")
         </div>
     </div>
     <div class="row">
         <div class="col-md-4">
             <p><b>Password:</b></p>
         </div>
-        <div class="col-md-6">
-            @Html.ActionLink("Change your password", "ChangePassword", "Manage")
+        <div class="col-md-4">
+            <p><b>Hidden</b></p>
         </div>
+        <div class="col-md-4">
+            @Html.ActionLink("Change Password", "ChangePassword", "Manage")
+        </div>
+    </div>
+    <div class="row">
+        <p></p>
+    </div>
+    <div class="row">
+        <p><b>WARNING:</b> Any changes to your email or password should be taken into account on future logins.</p>
     </div>
 </div>

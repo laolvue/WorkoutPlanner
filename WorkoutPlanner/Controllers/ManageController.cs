@@ -27,7 +27,7 @@ namespace WorkoutPlanner.Controllers
             SignInManager = signInManager;
         }
 
-        public ActionResult ChangeEmail()
+        public ActionResult ChangeWeight()
         {
             return View();
         }

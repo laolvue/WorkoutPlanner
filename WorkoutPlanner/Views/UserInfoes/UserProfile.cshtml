@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "UserProfile";
+    var prod = (List<string>)ViewData["userInfo"];
+    var quote = (string)ViewData["userQuote"];
+}
+
+@*<h2>@prod[1] @prod[2]</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <img alt="" src="@ViewBag.Base64String" style="height:200px;width:200px;" />
+            </div>
+            <div class="col-md-8">
+                <p>Hello</p>
+            </div>
+            <div class="col-md-12">
+                <p>BYE BROOO</p>
+            </div>
+        </div>
+    </div>*@
+@*<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />*@
+
+
+
+
+<div class="row">
+    <div class="col-md-3">
+        <h3>@prod[1] @prod[2]</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="well">
+            <img alt="" src="@ViewBag.Base64String" style="height:200px;width:200px;" />
+            <br />
+            <br />
+            <br />
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            <br />
+            <br />
+            <br />
+            <br />
+            <div class="col-md-5">
+                    <p><b><q>@quote</q></b></p>
+            </div>
+        </div>
+        <div class="row">
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <div class="col-md-4">
+                    <textarea rows="2" cols="50" name="comment" form="usrform" style="resize:none"></textarea>
+            </div>
+            <div class="col-md-3">
+                <input type="submit" value="Post Status" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <hr />
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <p>Age: @prod[5] years old</p>
+        <p>Height: @prod[3]</p>
+        <p>Weight: @prod[4] lbs</p>
+    </div>
+    <div class="col-md-9">
+        <div class="well">7</div>
+    </div>
+</div>

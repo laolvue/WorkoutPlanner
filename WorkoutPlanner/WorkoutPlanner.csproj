@@ -205,6 +205,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MusclesController.cs" />
     <Compile Include="Controllers\UserInfoesController.cs" />
+    <Compile Include="Controllers\UserQuotesController.cs" />
     <Compile Include="Controllers\WorkoutsController.cs" />
     <Compile Include="Eventfulz.cs">
       <DependentUpon>Model2.tt</DependentUpon>
@@ -219,6 +220,14 @@
     <Compile Include="Migrations\201704111314362_added workout table.cs" />
     <Compile Include="Migrations\201704111314362_added workout table.Designer.cs">
       <DependentUpon>201704111314362_added workout table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704121257074_added userQuote table.cs" />
+    <Compile Include="Migrations\201704121257074_added userQuote table.Designer.cs">
+      <DependentUpon>201704121257074_added userQuote table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704121420556_added UserPosts table.cs" />
+    <Compile Include="Migrations\201704121420556_added UserPosts table.Designer.cs">
+      <DependentUpon>201704121420556_added UserPosts table.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model2.Context.cs">
@@ -244,6 +253,8 @@
     <Compile Include="Models\Muscle.cs" />
     <Compile Include="Models\ProfilePicture.cs" />
     <Compile Include="Models\UserInfo.cs" />
+    <Compile Include="Models\UserPost.cs" />
+    <Compile Include="Models\UserQuote.cs" />
     <Compile Include="Models\Workout.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -362,6 +373,13 @@
     <Content Include="Views\Workouts\Edit.cshtml" />
     <Content Include="Views\Workouts\Index.cshtml" />
     <Content Include="Views\Manage\changeEmail.cshtml" />
+    <Content Include="Views\UserInfoes\UserProfile.cshtml" />
+    <Content Include="Views\UserInfoes\TEST.cshtml" />
+    <Content Include="Views\UserQuotes\Create.cshtml" />
+    <Content Include="Views\UserQuotes\Delete.cshtml" />
+    <Content Include="Views\UserQuotes\Details.cshtml" />
+    <Content Include="Views\UserQuotes\Edit.cshtml" />
+    <Content Include="Views\UserQuotes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -383,6 +401,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704111314362_added workout table.resx">
       <DependentUpon>201704111314362_added workout table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704121257074_added userQuote table.resx">
+      <DependentUpon>201704121257074_added userQuote table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704121420556_added UserPosts table.resx">
+      <DependentUpon>201704121420556_added UserPosts table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

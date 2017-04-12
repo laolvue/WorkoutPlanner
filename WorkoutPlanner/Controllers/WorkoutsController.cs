@@ -84,9 +84,9 @@ namespace WorkoutPlanner.Controllers
             var dayChose = DayOfWeek.Monday;
             switch (id)
             {
-                case null: dayChose= DateTime.UtcNow.DayOfWeek;
+                case null: dayChose= DateTime.Now.DayOfWeek;
                     break;
-                case 1: dayChose = DateTime.UtcNow.DayOfWeek;
+                case 1: dayChose = DateTime.Now.DayOfWeek;
                     break;
                 case 2: dayChose = DayOfWeek.Monday;
                     break;

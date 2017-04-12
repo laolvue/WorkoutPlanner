@@ -21,6 +21,51 @@ namespace WorkoutPlanner.Controllers
         {
             return View(db.UserInfos.ToList());
         }
+        public ActionResult TEST()
+        {
+            return View();
+        }
+
+        public ActionResult UserProfile()
+        {
+            var userId = from a in db.UserInfos
+                         where a.email == User.Identity.Name
+                         select a.userId;
+            int temporaryUserId = 0;
+            foreach (var item in userId)
+            {
+                temporaryUserId = item;
+            }
+            List<ProfilePicture> images = GetImages();
+
+            ProfilePicture imageFile = new ProfilePicture();
+            foreach (var item in images)
+            {
+                if (item.userId == temporaryUserId)
+                {
+                    imageFile = item;
+                }
+            }
+            ViewBag.Base64String = "data:image/png;base64," + Convert.ToBase64String(imageFile.profileImage, 0, imageFile.profileImage.Length);
+            
+            ViewData["userInfo"] = GetUserInfo();
+            string quote = getQuote(temporaryUserId)[0].quote;
+            ViewData["userQuote"] = quote;
+
+            return View();
+        }
+
+        public List<UserQuote> getQuote(int userId)
+        {
+
+            var quote = from a in db.UserQuotes
+                        where a.userId == userId
+                        select a;
+
+            return (quote.ToList());
+        }
+
+
 
         // GET: UserInfoes/Details/5
         public ActionResult Details(int? id)
@@ -93,9 +138,10 @@ namespace WorkoutPlanner.Controllers
         {
             if (ModelState.IsValid)
             {
+                userInfo.email = User.Identity.Name;
                 db.Entry(userInfo).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ProfilePage","UserInfoes");
             }
             return View(userInfo);
         }
@@ -207,11 +253,18 @@ namespace WorkoutPlanner.Controllers
                 }
             }
             ViewBag.Base64String = "data:image/png;base64," + Convert.ToBase64String(imageFile.profileImage, 0, imageFile.profileImage.Length);
+
+            ViewData["userInfo"] = GetUserInfo();
+            return View();
+        }
+
+        public List<string> GetUserInfo()
+        {
             var userInfo = from b in db.UserInfos
                            where b.email == User.Identity.Name
                            select b;
             List<string> userInfos = new List<string>();
-            foreach(var item in userInfo.ToList())
+            foreach (var item in userInfo.ToList())
             {
                 userInfos.Add(item.email);
                 userInfos.Add(item.firstName);
@@ -219,9 +272,9 @@ namespace WorkoutPlanner.Controllers
                 userInfos.Add(item.height.ToString());
                 userInfos.Add(item.weight.ToString());
                 userInfos.Add(item.age.ToString());
+                userInfos.Add(item.userId.ToString());
             }
-            ViewData["userInfo"] = userInfos;
-            return View();
+            return userInfos;
         }
 
         private List<ProfilePicture> GetImages()

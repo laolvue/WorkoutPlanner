@@ -36,5 +36,7 @@ namespace WorkoutPlanner.Models
         public DbSet<Workout> Workouts { get; set; }
         public DbSet<Eventful> Eventfuls { get; set; }
         public DbSet<ProfilePicture> ProfilePictures { get; set; }
+        public DbSet<UserQuote> UserQuotes { get; set; }
+        public DbSet<UserPost> UserPosts { get; set; }
     }
 }
