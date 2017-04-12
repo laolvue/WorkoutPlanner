@@ -26,6 +26,50 @@ namespace WorkoutPlanner.Controllers
             return View();
         }
 
+        public ActionResult SearchUser()
+        {
+            return View();
+        }
+
+        public ActionResult ViewUserProfile(string name)
+        {
+            var userId = from a in db.UserInfos
+                         where a.firstName == name
+                         select a.userId;
+            int temporaryUserId = 0;
+            foreach (var item in userId)
+            {
+                temporaryUserId = item;
+            }
+            List<ProfilePicture> images = GetImages();
+
+            ProfilePicture imageFile = new ProfilePicture();
+            foreach (var item in images)
+            {
+                if (item.userId == temporaryUserId)
+                {
+                    imageFile = item;
+                }
+            }
+            ViewBag.Base64String = "data:image/png;base64," + Convert.ToBase64String(imageFile.profileImage, 0, imageFile.profileImage.Length);
+
+            ViewData["userInfo"] = GetUserInfo();
+            string quote = getQuote(temporaryUserId)[0].quote;
+            ViewData["userQuote"] = quote;
+            ViewData["userPost"] = getPost(temporaryUserId);
+            ViewData["postTime"] = getPostDate(temporaryUserId);
+
+            return View();
+
+        }
+
+
+        [HttpPost]
+        public ActionResult FindUser(string name)
+        {
+            return Json(Url.Action("ViewUserProfile", "UserInfoes", new { name = name }));
+        }
+
         public ActionResult UserProfile()
         {
             var userId = from a in db.UserInfos
@@ -258,7 +302,7 @@ namespace WorkoutPlanner.Controllers
                     }
                 }
             }
-            return View(model);
+            return RedirectToAction("ProfilePage", "UserInfoes");
         }
 
         public ActionResult ProfilePage()

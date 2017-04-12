@@ -8,7 +8,14 @@
 <h2>Personal Information</h2>
 <div class="container">
     <div class="row">
-        <img alt="" src="@ViewBag.Base64String" style="height:200px;width:200px;" />
+        <div class="col-md-4">
+            <img alt="" src="@ViewBag.Base64String" style="height:200px;width:200px;" />
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            @Html.ActionLink("Change photo", "AddImage", "UserInfoes", new { id = prod[6] }, null)
+        </div>
     </div>
     <div class="row">
         <p></p>

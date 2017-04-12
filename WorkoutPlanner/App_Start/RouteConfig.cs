@@ -24,6 +24,12 @@ namespace WorkoutPlanner
                 url: "UserPosts/PostMessage/message/dataSent",
                 defaults: new { controller = "UserPosts", action = "PostMessage", message = UrlParameter.Optional, dataSent = UrlParameter.Optional }
             );
+
+            //routes.MapRoute(
+            //    name: "ViewProfile",
+            //    url: "UserInfoes/ViewUserProfile/name",
+            //    defaults: new { controller = "UserPosts", action = "PostMessage", name = UrlParameter.Optional}
+            //);
         }
     }
 }

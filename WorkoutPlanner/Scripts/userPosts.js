@@ -16,10 +16,7 @@ btn.addEventListener("click", function ()
         }
     });
 
-    //$.ajax(option).success(function (data) {
-    //    alert(data);
-    //    window.location.href = 'Workouts/Index/2';
-    //})
-    ////"Monday": window.location.href = 'Workouts/Index/2';
-
 })
+
+
+
