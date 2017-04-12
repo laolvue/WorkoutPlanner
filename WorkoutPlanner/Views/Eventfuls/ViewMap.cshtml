@@ -3,6 +3,7 @@
 }
 @{
     List<String> date = ViewData["MyProduct600"] as List<string>;
+    List<double> position = new List<double>();
 }
 
 
@@ -24,81 +25,20 @@
         <div class="row">
             <br />
             <div class="col-md-3">
-                <input type="text" name="firstname" value="" id="find">
+                <input type="text" value="" id="searchPlace">
             </div>
             <div class="col-md-5">
-                <input type="button" value="Search" onclick="location.href='@Url.Action("Delete", "Eventfuls")'" />
+                <input type="button" value="Search" id="btn" />
             </div>
         </div>
     </div>
 </div>
+<script src="~/Scripts/FourSquare.js"></script>
 <div class="row">
     <div class="col-md-12">
-        <div id="map"></div>
+        <div id="map" onload="hello()"></div>
     </div>
 </div>
-
-
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrvkfQB_Mfp7L9r1PKvU8AnTFmm9O8RlA&callback=initialize">
-</script>
-<script>
-
-    var geocoder;
-    var map;
-    function initialize() {
-        geocoder = new google.maps.Geocoder();
-        var latlng = new google.maps.LatLng(43.034134, -87.9141417);
-        var mapOptions = {
-            zoom: 8,
-            center: latlng
-        }
-        map = new google.maps.Map(document.getElementById('map'), mapOptions);
-        var geocoder = new google.maps.Geocoder;
-        var infowindow = new google.maps.InfoWindow;
-        geocodeLatLng(geocoder, map, infowindow);
-
-    }
-    function geocodeLatLng(geocoder, map, infowindow) {
-        var infoWindow = new google.maps.InfoWindow({ map: map });
-
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                var pos = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                };
-                geocoder.geocode({ 'location': pos }, function (results, status) {
-                    if (status === 'OK') {
-                        if (results[1]) {
-                            map.setZoom(11);
-                            var marker = new google.maps.Marker({
-                                position: pos,
-                                map: map
-                            });
-                            infowindow.setContent(results[0].formatted_address);
-                            addyz = results[0].formatted_address;
-                            infowindow.open(map, marker);
-                        } else {
-                            window.alert('No results found');
-                        }
-                    } else {
-                        window.alert('Geocoder failed due to: ' + status);
-                    }
-
-                });
-                //infoWindow.setPosition(pos);
-                //infoWindow.setContent('Location found.');
-                map.setCenter(pos);
-            }, function () {
-                handleLocationError(true, infoWindow, map.getCenter());
-            });
-        }
-        else {
-            // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter());
-        }
-
-    }
 </script>
