@@ -36,6 +36,12 @@ namespace WorkoutPlanner.Controllers
             return View(eventful);
         }
 
+        
+        public ActionResult GetCheckIn()
+        {
+            return View();
+        }
+
         // GET: Eventfuls/Create
         public ActionResult Create()
         {
