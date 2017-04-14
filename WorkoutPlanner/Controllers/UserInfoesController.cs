@@ -53,11 +53,33 @@ namespace WorkoutPlanner.Controllers
             }
             ViewBag.Base64String = "data:image/png;base64," + Convert.ToBase64String(imageFile.profileImage, 0, imageFile.profileImage.Length);
 
-            ViewData["userInfo"] = GetUserInfo();
+            
+
+            var userInfo = from b in db.UserInfos
+                           where b.userId == temporaryUserId
+                           select b;
+            List<string> userInfos = new List<string>();
+
+            foreach (var item in userInfo.ToList())
+            {
+                userInfos.Add(item.email);
+                userInfos.Add(item.firstName);
+                userInfos.Add(item.lastName);
+                userInfos.Add(item.height.ToString());
+                userInfos.Add(item.weight.ToString());
+                userInfos.Add(item.age.ToString());
+                userInfos.Add(item.userId.ToString());
+            }
+            ViewData["userInfo"] = userInfos;
+
+
+
+
             string quote = getQuote(temporaryUserId)[0].quote;
             ViewData["userQuote"] = quote;
             ViewData["userPost"] = getPost(temporaryUserId);
             ViewData["postTime"] = getPostDate(temporaryUserId);
+            ViewData["userId"] = temporaryUserId;
 
             return View();
 

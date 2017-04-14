@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "Index";
+    var isUser = (int)ViewData["isUser"];
 }
 <div class="row">
     <h1></h1>
@@ -8,15 +9,18 @@
     <h1></h1>
 </div>
 <div class="row">
-    <div class="col-md-3">
-        <p></p>
-    </div>
-    <div class="col-md-4">
-        <input type="button" value="Add To Calendar" onclick="location.href='@Url.Action("Create", "Eventfuls")'" />
-    </div>
-    <div class="col-md-4">
-        <input type="button" value="Delete From Calendar" onclick="location.href='@Url.Action("Delete", "Eventfuls")'" />
-    </div>
+    @if (isUser == 2)
+    {
+        <div class="col-md-3">
+            <p></p>
+        </div>
+        <div class="col-md-4">
+            <input type="button" value="Add To Calendar" onclick="location.href='@Url.Action("Create", "Eventfuls")'" />
+        </div>
+        <div class="col-md-4">
+            <input type="button" value="Delete From Calendar" onclick="location.href='@Url.Action("Delete", "Eventfuls")'" />
+        </div>
+    }
 </div>
 <div class="row">
     <h1></h1>
@@ -27,26 +31,26 @@
 <div class="row">
     <h2>Schedular App</h2>
 </div>
-    @* HTML *@
-    <div ng-app="WorkoutPlans" ng-controller="myNgController">
-        <div class="row">
-            <div class="col-md-10">
-                <div id="calendar" ui-calendar="uiConfig.calendar" ng-model="eventSources" calendar="myCalendar"></div>
-            </div>
-        </div>
-        <div class="row">
-            <h1></h1>
+@* HTML *@
+<div ng-app="WorkoutPlans" ng-controller="myNgController">
+    <div class="row">
+        <div class="col-md-10">
+            <div id="calendar" ui-calendar="uiConfig.calendar" ng-model="eventSources" calendar="myCalendar"></div>
         </div>
     </div>
+    <div class="row">
+        <h1></h1>
+    </div>
+</div>
 
-    @* CSS *@
-    <link href="~/Content/fullcalendar.css" rel="stylesheet" />
-    @* JS *@
-    <script src="~/Scripts/moment.js"></script>
-    <script src="~/Scripts/jquery-1.11.3.js"></script>
-    <script src="~/Scripts/angular.js"></script>
-    <script src="~/Scripts/calendar.js"></script>
-    <script src="~/Scripts/fullcalendar.js"></script>
-    <script src="~/Scripts/gcal.js"></script>
-    @* OUR ANGULAR COMPONENTs *@
-    <script src="~/Scripts/WorkoutPlans.js"></script>
+@* CSS *@
+<link href="~/Content/fullcalendar.css" rel="stylesheet" />
+@* JS *@
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/jquery-1.11.3.js"></script>
+<script src="~/Scripts/angular.js"></script>
+<script src="~/Scripts/calendar.js"></script>
+<script src="~/Scripts/fullcalendar.js"></script>
+<script src="~/Scripts/gcal.js"></script>
+@* OUR ANGULAR COMPONENTs *@
+<script src="~/Scripts/WorkoutPlans.js"></script>

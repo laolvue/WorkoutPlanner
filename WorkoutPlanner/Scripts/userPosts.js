@@ -12,19 +12,7 @@ btn.addEventListener("click", function ()
         contentType: 'application/json; charset=utf-8',
         
         success: function (data) {
-           // window.location.href = data + "/1";
-
-            $.ajax({
-                url: data,
-                data: JSON.stringify({ isCheckIn: 1 }),
-                method: 'post',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-
-                success: function (data) {
-                    window.location.href = data;
-                }
-            });
+           window.location.href = data;
 
         }
     });

@@ -5,6 +5,7 @@
     var quote = (string)ViewData["userQuote"];
     var post = (List<string>)ViewData["userPost"];
     var postDate = (List<string>)ViewData["postTime"];
+    var userId = (int)ViewData["userId"];
 }
 
 
@@ -51,6 +52,12 @@
         <p>Age: @prod[5] years old</p>
         <p>Height: @prod[3]</p>
         <p>Weight: @prod[4] lbs</p>
+        <br />
+        <br />
+        <input type="button" value="View Calendar" id="btn2" class="btn btn-default" onclick="location.href='@Url.Action("Index", "Calendar", new { id = userId }, null)'"/>
+        <br />
+        <br />
+        <input type="submit" value="View Daily Workouts" id="btn2" class="btn btn-default" />
     </div>
     <div class="col-md-9">
         @for (int i = (post.Count - 1); i >= 0; i--)
