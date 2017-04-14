@@ -10,6 +10,21 @@ function GetUserToken() {
     //$.post("/Eventfuls/method" + id);
 }
 
+function PostCheckIn(messageToSend, date) {
+    $.ajax({
+        url: '/userPosts/PostMessage',
+        data: JSON.stringify({ message: messageToSend, dateSent: date }),
+        method: 'post',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+
+        success: function (data) {
+            window.location.href = data;
+        }
+    });
+}
+
+
 
 function AcceptCheckIn(ourData) {
     var date = new Date().toLocaleString();
@@ -23,9 +38,12 @@ function AcceptCheckIn(ourData) {
         method: "post",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-
+        
         success: function (data) {
-            window.location.href = data;
+
+            var messageToBeSent = "Checked into " + checkInName + " on: " + checkInAddress;
+
+            PostCheckIn(messageToBeSent, date);
         }
     });
 }
@@ -41,7 +59,6 @@ btn.addEventListener("click", function () {
     ourRequest.open('GET', bill);
     ourRequest.onload = function () {
         var ourData = JSON.parse(ourRequest.responseText);
-        renderHTML2(ourData);
         var addresser = [];
         var addressName = [];
 
@@ -200,7 +217,6 @@ function CheckIn(){
     xhr.open("POST", url, true);
     xhr.onload = function () {
         var ourData = JSON.parse(xhr.responseText);
-        renderHTML2(ourData);
         AcceptCheckIn(ourData);
 
     }

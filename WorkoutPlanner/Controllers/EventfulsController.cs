@@ -54,8 +54,10 @@ namespace WorkoutPlanner.Controllers
 
             db.CheckIns.Add(checkIn);
             db.SaveChanges();
-            
-            return Json(Url.Action("Index","Home"));
+
+            string messageToBeSent = "Checked into" + locationName + " at: " + locationAddress;
+
+            return Json(Url.Action("PostMessage","UserPosts"));
         }
 
         // GET: Eventfuls/Create
