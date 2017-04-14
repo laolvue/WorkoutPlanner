@@ -23,7 +23,7 @@
                 @if (Request.IsAuthenticated)
                 {
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Global Chat", "About", "Home")</li>
+                        <li><a id="btn645" href="https://foursquare.com/oauth2/authenticate?client_id=N3VEEGBW2Y31BO4MOAEKR02JBGIW3UVXTMSHZO4JW1JZKMW3&response_type=token&redirect_uri=http://localhost:8550/Eventfuls/ViewMap">Check In</a></li>
                         <li>@Html.ActionLink("Create Exercise", "Create", "Workouts")</li>
                         <li>@Html.ActionLink("My Calendar", "Index", "Calendar")</li>
                         <li>@Html.ActionLink("Today's Workout", "Index", "Workouts", new { id = 1 }, null)</li>

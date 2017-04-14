@@ -10,7 +10,7 @@ btn.addEventListener("click", function ()
         method: 'post',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-
+        
         success: function (data) {
             window.location.href = data;
         }

@@ -36,10 +36,26 @@ namespace WorkoutPlanner.Controllers
             return View(eventful);
         }
 
-        
-        public ActionResult GetCheckIn()
+        [HttpPost]
+        public ActionResult GetCheckIn(string userIds, DateTime checkInDate, string locationName, string locationAddress)
         {
-            return View();
+            var user = from a in db.UserInfos
+                       where a.email == User.Identity.Name
+                       select a.userId;
+
+            CheckIn checkIn = new CheckIn
+            {
+                fourSquareUser = userIds,
+                checkInPlace = locationName,
+                checkInAddress = locationAddress,
+                checkInTime = checkInDate,
+                userId = user.ToList()[0]
+            };
+
+            db.CheckIns.Add(checkIn);
+            db.SaveChanges();
+            
+            return Json(Url.Action("Index","Home"));
         }
 
         // GET: Eventfuls/Create

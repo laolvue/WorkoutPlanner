@@ -25,11 +25,11 @@ namespace WorkoutPlanner
                 defaults: new { controller = "UserPosts", action = "PostMessage", message = UrlParameter.Optional, dataSent = UrlParameter.Optional }
             );
 
-            //routes.MapRoute(
-            //    name: "ViewProfile",
-            //    url: "UserInfoes/ViewUserProfile/name",
-            //    defaults: new { controller = "UserPosts", action = "PostMessage", name = UrlParameter.Optional}
-            //);
+            routes.MapRoute(
+                name: "GetCheckIn",
+                url: "Eventfuls/GetCheckIn/userId/checkInDate/locationName/locationAddress",
+                defaults: new { controller = "Eventfuls", action = "GetCheckIn", userId = UrlParameter.Optional, checkInDate = UrlParameter.Optional, locationName = UrlParameter.Optional, locationAddress = UrlParameter.Optional}
+            );
         }
     }
 }

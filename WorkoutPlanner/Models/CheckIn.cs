@@ -11,7 +11,7 @@ namespace WorkoutPlanner.Models
     {
         [Key]
         public int checkInId { get; set; }
-        public int fourSquareUser { get; set; }
+        public string fourSquareUser { get; set; }
         public string checkInPlace { get; set; }
         public string checkInAddress { get; set; }
         public DateTime checkInTime { get; set; }
