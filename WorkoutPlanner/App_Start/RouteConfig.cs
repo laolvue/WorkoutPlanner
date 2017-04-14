@@ -30,6 +30,12 @@ namespace WorkoutPlanner
                 url: "Eventfuls/GetCheckIn/userId/checkInDate/locationName/locationAddress",
                 defaults: new { controller = "Eventfuls", action = "GetCheckIn", userId = UrlParameter.Optional, checkInDate = UrlParameter.Optional, locationName = UrlParameter.Optional, locationAddress = UrlParameter.Optional}
             );
+
+            routes.MapRoute(
+                name: "DayWorkout",
+                url: "Workouts/Index/id/userId",
+                defaults: new { controller = "Workouts", action = "Index", id = UrlParameter.Optional, userId = UrlParameter.Optional }
+            );
         }
     }
 }

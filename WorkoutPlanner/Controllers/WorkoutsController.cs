@@ -79,7 +79,7 @@ namespace WorkoutPlanner.Controllers
 
 
         // GET: Workouts
-        public ActionResult Index(int? id)
+        public ActionResult Index(int? id, int? userId)
         {
             var dayChose = DayOfWeek.Monday;
             switch (id)
@@ -106,9 +106,33 @@ namespace WorkoutPlanner.Controllers
             }
             List<string> workoutImages = new List<string>();
             List<Workout> images = GetImages();
-            var workout = from a in images
-                           where a.userEmail == User.Identity.Name
-                           select a;
+            IEnumerable<Workout> workout;
+            if(userId != null)
+            {
+                var user = from c in db.UserInfos
+                           where c.userId == userId
+                           select c.email;
+
+                var userEmail = user.ToList()[0];
+                workout = from a in images
+                              where a.userEmail == userEmail
+                              select a;
+
+                
+            }
+            else
+            {
+                workout = from a in images
+                              where a.userEmail == User.Identity.Name
+                              select a;
+
+                var currentId = from g in db.UserInfos
+                                where g.email == User.Identity.Name
+                                select g.userId;
+
+                userId = currentId.ToList()[0];
+            }
+            
             var dayOfWeek = DayOfWeek.Monday;
             List<Workout> workouts = new List<Workout>();
 
@@ -124,6 +148,7 @@ namespace WorkoutPlanner.Controllers
                 }
             }
             ViewData["workoutImages"] = workoutImages;
+            ViewData["userId"] = userId;
             ViewBag.Day = $"{dayChose}";
             return View(workouts);
         }

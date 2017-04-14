@@ -57,7 +57,7 @@
         <input type="button" value="View Calendar" id="btn2" class="btn btn-default" onclick="location.href='@Url.Action("Index", "Calendar", new { id = userId }, null)'"/>
         <br />
         <br />
-        <input type="submit" value="View Daily Workouts" id="btn2" class="btn btn-default" />
+        <input type="submit" value="View Daily Workouts" id="btn3" class="btn btn-default" onclick="location.href='@Url.Action("Index", "Workouts", new { id = 1, UserId=userId }, null)'" />
     </div>
     <div class="col-md-9">
         @for (int i = (post.Count - 1); i >= 0; i--)

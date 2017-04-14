@@ -13,22 +13,37 @@ namespace WorkoutPlanner.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Calendar
-        public ActionResult Index(int id)
+        public ActionResult Index(int? id)
         {
-            var bling = from b in db.UserInfos
-                        where b.userId == id
-                        select b.email;
-            var email = bling.ToList()[0];
-            if(email != User.Identity.Name)
+            if(id != null)
             {
-                ViewData["isUser"] = 1;
+                var bling = from b in db.UserInfos
+                            where b.userId == id
+                            select b.email;
+                var email = bling.ToList()[0];
+                if (email == User.Identity.Name)
+                {
+                    ViewData["isUser"] = 1;
+                }
+                else
+                {
+                    ViewData["isUser"] = 2;
+                }
+                TempData["userId"] = id.ToString();
+
             }
             else
             {
-                ViewData["isUser"] = 2;
+                ViewData["isUser"] = 1;
+                var bling = from c in db.UserInfos
+                            where c.email == User.Identity.Name
+                            select c.userId;
+                var userId = bling.ToList()[0];
+                TempData["userId"] = userId.ToString();
+
             }
 
-            TempData["userId"] = id.ToString();
+
             return View();
         }
 
