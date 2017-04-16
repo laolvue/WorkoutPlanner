@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Index";
+    var status = (List<string>)ViewData["statuses"];
+    var image = (List<string>)ViewData["image"];
+    var names = (List<string>)ViewData["userNames"];
+}
+
+<h2>Buddy Requests</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            <p>Profile Image</p>
+        </th>
+        <th>
+            <p>Email</p>
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @for (int i = 0; i < names.Count; i++)
+    {
+        <tr>
+            <td>
+                <img alt="" src="@image[i]" style="height:100px;width:100px;" onclick="location.href='@Url.Action("CheckFriend", "UserInfoes", new { name = names[i] })'" />
+            </td>
+            <td>
+                <p>@names[i]</p>
+            </td>
+            @if (@status[i] == "accept or knee")
+            {
+                <td>
+                    @Html.ActionLink("Accept Buddy", "AcceptBuddy", new { buddyEmail = names[i]}, null) |
+                </td>
+                <td>
+                    @Html.ActionLink("Decline", "DeclineBuddy", new { buddyEmail = names[i] }) |
+                </td>
+            }
+        </tr>
+    }
+
+
+</table>

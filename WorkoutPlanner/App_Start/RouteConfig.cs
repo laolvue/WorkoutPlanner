@@ -36,6 +36,7 @@ namespace WorkoutPlanner
                 url: "Workouts/Index/id/userId",
                 defaults: new { controller = "Workouts", action = "Index", id = UrlParameter.Optional, userId = UrlParameter.Optional }
             );
+            
         }
     }
 }

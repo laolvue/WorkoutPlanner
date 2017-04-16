@@ -39,5 +39,6 @@ namespace WorkoutPlanner.Models
         public DbSet<UserQuote> UserQuotes { get; set; }
         public DbSet<UserPost> UserPosts { get; set; }
         public DbSet<CheckIn> CheckIns { get; set; }
+        public DbSet<Buddy> Buddies { get; set; }
     }
 }

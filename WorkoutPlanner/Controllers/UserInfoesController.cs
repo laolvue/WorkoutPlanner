@@ -31,10 +31,120 @@ namespace WorkoutPlanner.Controllers
             return View();
         }
 
+
+
+        public ActionResult SearchProfile(string name)
+        {
+            var userId = from a in db.UserInfos
+                         where a.firstName == name || a.email == name
+                         select a.userId;
+            int temporaryUserId = 0;
+            foreach (var item in userId)
+            {
+                temporaryUserId = item;
+            }
+            List<ProfilePicture> images = GetImages();
+
+            ProfilePicture imageFile = new ProfilePicture();
+            foreach (var item in images)
+            {
+                if (item.userId == temporaryUserId)
+                {
+                    imageFile = item;
+                }
+            }
+            ViewBag.Base64String = "data:image/png;base64," + Convert.ToBase64String(imageFile.profileImage, 0, imageFile.profileImage.Length);
+
+
+
+            var userInfo = from b in db.UserInfos
+                           where b.userId == temporaryUserId
+                           select b;
+            List<string> userInfos = new List<string>();
+
+            foreach (var item in userInfo.ToList())
+            {
+                userInfos.Add(item.email);
+                userInfos.Add(item.firstName);
+                userInfos.Add(item.lastName);
+                userInfos.Add(item.height.ToString());
+                userInfos.Add(item.weight.ToString());
+                userInfos.Add(item.age.ToString());
+                userInfos.Add(item.userId.ToString());
+            }
+            ViewData["userInfo"] = userInfos;
+
+
+
+
+            string quote = getQuote(temporaryUserId)[0].quote;
+            ViewData["userQuote"] = quote;
+            ViewData["userPost"] = getPost(temporaryUserId);
+            ViewData["postTime"] = getPostDate(temporaryUserId);
+            ViewData["userId"] = temporaryUserId;
+            var buddy = TempData["buddy"] as string;
+            if(buddy == "Sent")
+            {
+                ViewData["status"] = 2;
+            }
+            else
+            {
+                ViewData["status"] = 1;
+            }
+
+            return View();
+        }
+
+
+        public ActionResult CheckFriend(string name)
+        {
+            var id = from c in db.UserInfos
+                     where c.email == User.Identity.Name
+                     select c.userId;
+
+            var userId = id.ToList()[0];
+            var email = from b in db.UserInfos
+                        where b.firstName == name || b.email == name
+                        select b.email;
+
+            var buddyEmail = email.ToList()[0];
+
+            var item = from a in db.Buddies
+                       where a.buddyEmail == buddyEmail && a.userId == userId
+                       select a;
+
+
+            if (item.Count() > 0)
+            {
+                var itemList = item.ToList()[0];
+                if (itemList.status == "Accepted")
+                {
+                    return RedirectToAction("ViewUserProfile", "UserInfoes", new { name = name });
+                }
+                else if (itemList.status == "Sent")
+                {
+                    TempData["buddy"] = item.ToList()[0].status;
+                    return RedirectToAction("SearchProfile", "UserInfoes", new { name = name });
+                }
+                else
+                {
+                    TempData["buddy"] = "Not Sent";
+                    return RedirectToAction("SearchProfile", "UserInfoes", new { name = name });
+                }
+            }
+            else
+            {
+                TempData["buddy"] = "Not Sent";
+                return RedirectToAction("SearchProfile", "UserInfoes", new { name = name });
+            }
+        }
+
+
+
         public ActionResult ViewUserProfile(string name)
         {
             var userId = from a in db.UserInfos
-                         where a.firstName == name
+                         where a.firstName == name || a.email == name
                          select a.userId;
             int temporaryUserId = 0;
             foreach (var item in userId)
@@ -89,7 +199,7 @@ namespace WorkoutPlanner.Controllers
         [HttpPost]
         public ActionResult FindUser(string name)
         {
-            return Json(Url.Action("ViewUserProfile", "UserInfoes", new { name = name }));
+            return Json(Url.Action("CheckFriend", "UserInfoes", new { name = name }));
         }
 
         public ActionResult UserProfile()

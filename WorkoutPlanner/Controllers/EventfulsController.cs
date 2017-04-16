@@ -288,6 +288,7 @@ namespace WorkoutPlanner.Controllers
 
         protected override void Dispose(bool disposing)
         {
+           
             if (disposing)
             {
                 db.Dispose();
@@ -299,6 +300,37 @@ namespace WorkoutPlanner.Controllers
         public ActionResult ViewMap()
         {
             return View();
+        }
+
+        public ActionResult GetCheckedInUsers(string address)
+        {
+            var checkin = from a in db.CheckIns
+                          where a.checkInAddress == address
+                          select a;
+            var checkins = checkin.ToList();
+            List<CheckIn> checkinUsers = new List<CheckIn>();
+            foreach(var item in checkins)
+            {
+                if (DateTime.Now.AddHours(-1) <= item.checkInTime)
+                {
+                    checkinUsers.Add(item);
+                }
+            }
+
+            List<string> checkInLog = new List<string>();
+            foreach(var item in checkinUsers)
+            {
+                var user = from b in db.UserInfos
+                           where b.userId == item.userId
+                           select b;
+                var userFirstName = user.ToList()[0].firstName;
+                var userLastName = user.ToList()[0].lastName;
+                var userCheckIn = userFirstName + " " + userLastName + " checked in at " + item.checkInTime;
+                checkInLog.Add(userCheckIn);
+            }
+
+            return Json(checkInLog,JsonRequestBehavior.AllowGet);
+
         }
     }
 }

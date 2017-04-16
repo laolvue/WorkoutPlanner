@@ -1,0 +1,67 @@
+﻿@model IEnumerable<WorkoutPlanner.Models.Buddy>
+
+@{
+    ViewBag.Title = "Index";
+    var status = (List<string>)ViewData["statuses"];
+    var image = (List<string>)ViewData["image"];
+    var names = (List<string>)ViewData["userNames"];
+}
+
+<h2>Buddies</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            <p>Profile Image</p>
+        </th>
+        <th>
+            <p>Email</p>
+        </th>
+        @if (status.Count > 0)
+        {
+            if (status[0] != "Accepted")
+            {
+                <th>
+                    <p>Status</p>
+                </th>
+                <th></th>
+            }
+            if (status[0] == "Accepted")
+            {
+                <th></th>
+                <th></th>
+            }
+        }
+    </tr>
+
+    @for (int i = 0; i < names.Count; i++)
+    {
+        <tr>
+            <td>
+                <img alt="" src="@image[i]" style="height:100px;width:100px;" onclick="location.href='@Url.Action("CheckFriend", "UserInfoes", new { name = names[i] })'" />
+            </td>
+            <td>
+                <p>@names[i]</p>
+            </td>
+            @if (status[i] == "Sent")
+            {
+                <td>
+                    <p>@status[i]</p>
+                </td>
+                <td>
+                    @Html.ActionLink("Cancel Friend Request", "DeclineBuddy", new { buddyEmail = names[i] }) |
+                </td>
+            }
+            @if (status[i] == "Accepted")
+            {
+                <td>
+                </td>
+                <td>
+                    @Html.ActionLink("Delete Buddy", "DeleteBuddy", new { buddyEmail = names[i] }) |
+                </td>
+            }
+        </tr>
+    }
+
+
+</table>

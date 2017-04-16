@@ -198,6 +198,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BuddiesController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\EventfulsController.cs" />
     <Compile Include="Controllers\ExercisesController.cs" />
@@ -238,6 +239,18 @@
     <Compile Include="Migrations\201704132200499_changed int to string on checkin table.Designer.cs">
       <DependentUpon>201704132200499_changed int to string on checkin table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704141709251_added buddy table.cs" />
+    <Compile Include="Migrations\201704141709251_added buddy table.Designer.cs">
+      <DependentUpon>201704141709251_added buddy table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704141736338_added buddies table into identity model.cs" />
+    <Compile Include="Migrations\201704141736338_added buddies table into identity model.Designer.cs">
+      <DependentUpon>201704141736338_added buddies table into identity model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704141805112_added status column to buddy table.cs" />
+    <Compile Include="Migrations\201704141805112_added status column to buddy table.Designer.cs">
+      <DependentUpon>201704141805112_added status column to buddy table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model2.Context.cs">
       <AutoGen>True</AutoGen>
@@ -255,6 +268,7 @@
       <DependentUpon>Model2.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Buddy.cs" />
     <Compile Include="Models\CheckIn.cs" />
     <Compile Include="Models\Eventful.cs" />
     <Compile Include="Models\Exercise.cs" />
@@ -403,6 +417,14 @@
     <Content Include="Views\UserInfoes\ViewUserProfile.cshtml" />
     <Content Include="Views\UserInfoes\SearchUser.cshtml" />
     <Content Include="Views\Eventfuls\ViewMap.cshtml" />
+    <Content Include="Views\UserInfoes\SearchProfile.cshtml" />
+    <Content Include="Views\Buddies\Create.cshtml" />
+    <Content Include="Views\Buddies\Delete.cshtml" />
+    <Content Include="Views\Buddies\Details.cshtml" />
+    <Content Include="Views\Buddies\Edit.cshtml" />
+    <Content Include="Views\Buddies\Index.cshtml" />
+    <Content Include="Views\Buddies\ViewBuddies.cshtml" />
+    <Content Include="Views\Buddies\ViewBuddyList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -436,6 +458,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704132200499_changed int to string on checkin table.resx">
       <DependentUpon>201704132200499_changed int to string on checkin table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704141709251_added buddy table.resx">
+      <DependentUpon>201704141709251_added buddy table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704141736338_added buddies table into identity model.resx">
+      <DependentUpon>201704141736338_added buddies table into identity model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704141805112_added status column to buddy table.resx">
+      <DependentUpon>201704141805112_added status column to buddy table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

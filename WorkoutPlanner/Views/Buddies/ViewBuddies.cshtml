@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "ViewBuddies";
+}
+<h2>My Buddies</h2>
+
+<div class="row">
+    <br />
+    <br />
+    <br />
+    <div class="col-md-3">
+        <input type="button" value="Buddy Requests" onclick="location.href='@Url.Action("ViewBuddyList", "Buddies")'" />
+    </div>
+    <div class="col-md-3">
+        <input type="button" value="Pending Buddies" onclick="location.href='@Url.Action("Index", "Buddies",new { id = 1 })'" />
+    </div>
+    <div class="col-md-3">
+        <input type="button" value="Search For Buddies" onclick="location.href='@Url.Action("SearchUser", "UserInfoes", new { id = 1 })'" />
+    </div>
+    <div class="col-md-3">
+        <input type="button" value="My Buddies" onclick="location.href='@Url.Action("Index", "Buddies",new { id = 2 })'" />
+    </div>
+</div>
+
+
+<script src="~/Scripts/searchUser.js"></script>

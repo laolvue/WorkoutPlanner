@@ -223,3 +223,29 @@ function CheckIn(){
     xhr.send();
    
 }
+
+function GetUsers()
+{
+    var place = document.getElementById("year");
+    var placeAddress = place.options[place.selectedIndex].value;
+    placeAddress = placeAddress.split(": ");
+
+    $.ajax({
+        url: '/Eventfuls/GetCheckedInUsers',
+        data: JSON.stringify({ address: placeAddress[1] }),
+        method: 'post',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+
+        success: function (data) {
+
+            for(i=0;i<data.length;i++)
+            {
+                var select = document.getElementById("users");
+                var option = document.createElement('option');
+                option.text = option.value = data[i];
+                select.add(option, 0);
+            }
+        }
+    });
+}
