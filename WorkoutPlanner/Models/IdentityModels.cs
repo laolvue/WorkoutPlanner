@@ -40,5 +40,6 @@ namespace WorkoutPlanner.Models
         public DbSet<UserPost> UserPosts { get; set; }
         public DbSet<CheckIn> CheckIns { get; set; }
         public DbSet<Buddy> Buddies { get; set; }
+        public DbSet<ChatRoom> ChatRooms { get; set; }
     }
 }
