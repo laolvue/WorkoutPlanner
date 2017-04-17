@@ -135,11 +135,23 @@ namespace WorkoutPlanner.Controllers
             List<string> userImages = new List<string>();
             List<string> userNames = new List<string>();
             List<string> userStatuses = new List<string>();
+            List<string> channel = new List<string>();
+
             foreach (var item in buddys.ToList())
             {
                 userNames.Add(item.buddyEmail);
                 userStatuses.Add(item.status);
+
+                var chatLog = from y in db.ChatRooms
+                              where y.buddyOne == item.buddyEmail || y.buddyTwo == item.buddyEmail && y.buddyOne == User.Identity.Name || y.buddyTwo == User.Identity.Name
+                              select y.channel;
+                if (chatLog.Count() > 0)
+                {
+                    channel.Add(chatLog.ToList()[0]);
+
+                }
                 
+
 
                 var userIds = from c in db.UserInfos
                          where item.buddyEmail == c.email
@@ -153,10 +165,14 @@ namespace WorkoutPlanner.Controllers
                 }
 
             }
+
+            
+
             ViewData["image"] = userImages;
             ViewData["userNames"] = userNames;
             ViewData["statuses"] = userStatuses;
             ViewData["userEmail"] = User.Identity.Name;
+            ViewData["channel"] = channel;
             
 
 
@@ -316,6 +332,24 @@ namespace WorkoutPlanner.Controllers
                 };
 
                 db.Buddies.Add(buddys);
+
+
+                var chatroomChannel = from z in db.ChatRooms
+                                      where z.buddyOne == buddyEmail || z.buddyTwo == buddyEmail && z.buddyOne == User.Identity.Name || z.buddyTwo == User.Identity.Name
+                                      select z;
+                if (chatroomChannel.Count() == 0)
+                {
+                    var random = new Random();
+                    ChatRoom chatroom = new ChatRoom
+                    {
+                        buddyOne = buddyEmail,
+                        buddyTwo = User.Identity.Name,
+                        message = "Chat Channel Created",
+                        timeSent = DateTime.Now,
+                        channel = random.Next(999999).ToString()
+                    };
+                    db.ChatRooms.Add(chatroom);
+                }
                 db.SaveChanges();
             }
 

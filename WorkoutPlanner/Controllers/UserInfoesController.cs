@@ -313,7 +313,7 @@ namespace WorkoutPlanner.Controllers
                 };
                 db.UserInfos.Add(userInfo2);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AddImage","UserInfoes");
             }
 
             return View(userInfo);
@@ -434,7 +434,7 @@ namespace WorkoutPlanner.Controllers
                     }
                 }
             }
-            return RedirectToAction("ProfilePage", "UserInfoes");
+            return RedirectToAction("Create", "UserQuotes");
         }
 
         public ActionResult ProfilePage()

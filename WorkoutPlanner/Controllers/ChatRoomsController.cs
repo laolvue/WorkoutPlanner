@@ -14,7 +14,7 @@ namespace WorkoutPlanner.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public ActionResult JoinChatRoom(string email, string userEmail)
+        public ActionResult JoinChatRoom(string email, string userEmail, string channel)
         {
             List<string> users = new List<string>();
             var firstName = from a in db.UserInfos
@@ -76,12 +76,20 @@ namespace WorkoutPlanner.Controllers
 
             //if(chatlogs.Count() == 0)
             //{
+            var channel = from a in db.ChatRooms
+                          where a.buddyOne == userEmail || a.buddyTwo == userEmail && a.buddyOne == User.Identity.Name || a.buddyTwo == User.Identity.Name
+                          select a.channel;
+
+            var chatChannel = channel.ToList()[0];
+
             ChatRoom chatroom = new ChatRoom
             {
                 buddyOne = userEmail,
                 buddyTwo = User.Identity.Name,
                 message = email,
-                timeSent = DateTime.Now
+                timeSent = DateTime.Now,
+                channel = chatChannel
+
             };
 
             db.ChatRooms.Add(chatroom);

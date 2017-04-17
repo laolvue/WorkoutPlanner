@@ -44,8 +44,8 @@ namespace WorkoutPlanner
             );
             routes.MapRoute(
                 name: "JoinChatRoom2",
-                url: "{controller}/{action}/{email}/{userEmail}",
-                defaults: new { controller = "Chatrooms", action = "JoinChatRooms", email = UrlParameter.Optional, userEmail = UrlParameter.Optional }
+                url: "{controller}/{action}/{email}/{userEmail}/{channel}",
+                defaults: new { controller = "Chatrooms", action = "JoinChatRooms", email = UrlParameter.Optional, userEmail = UrlParameter.Optional, channel = UrlParameter.Optional }
             );
 
         }

@@ -6,6 +6,7 @@
     var image = (List<string>)ViewData["image"];
     var names = (List<string>)ViewData["userNames"];
     var userEmail = (string)ViewData["userEmail"];
+    var channel = (List<string>)ViewData["channel"];
 
 }
 
@@ -44,7 +45,11 @@
             </td>
             <td>
                 <p>@names[i]</p>
-                <input hidden type="button" id="namee" name="@names[i]"/>
+                <input hidden type="button" id="namee" name="@names[i]" />
+                @if (channel.Count > 0)
+                {
+                    <input hidden type="button" id="channelz" name="@channel[i]" />
+                }
             </td>
             @if (status[i] == "Sent")
             {
@@ -76,8 +81,9 @@
     function getNameOfUser() {
         var name = document.getElementById("namee").name;
         var user = document.getElementById("test").name;
+        var channel = document.getElementById("channelz").name;
         console.log(window.location.href);
-        window.location.href = 'http://localhost:8550/ChatRooms/JoinChatRoom?email=' + name+'&userEmail='+user;
+        window.location.href = 'http://localhost:8550/ChatRooms/JoinChatRoom?email=' + name+'&userEmail='+user +'&channel='+channel;
 
     }
 </script>

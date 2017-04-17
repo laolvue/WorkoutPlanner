@@ -15,5 +15,6 @@ namespace WorkoutPlanner.Models
         public string buddyTwo { get; set; }
         public string message { get; set; }
         public DateTime timeSent { get; set; }
+        public string channel { get; set; }
     }
 }
