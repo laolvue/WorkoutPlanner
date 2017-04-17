@@ -36,7 +36,18 @@ namespace WorkoutPlanner
                 url: "Workouts/Index/id/userId",
                 defaults: new { controller = "Workouts", action = "Index", id = UrlParameter.Optional, userId = UrlParameter.Optional }
             );
-            
+
+            routes.MapRoute(
+                name: "JoinChatRoom",
+                url: "{controller}/{action}/{email}",
+                defaults: new { controller = "Chatrooms", action = "JoinChatRooms", email = UrlParameter.Optional}
+            );
+            routes.MapRoute(
+                name: "JoinChatRoom2",
+                url: "{controller}/{action}/{email}/{userEmail}",
+                defaults: new { controller = "Chatrooms", action = "JoinChatRooms", email = UrlParameter.Optional, userEmail = UrlParameter.Optional }
+            );
+
         }
     }
 }

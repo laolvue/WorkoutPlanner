@@ -1,14 +1,16 @@
 ﻿
 var publish_key = 'pub-c-67ebfbbd-a2db-4cff-a6d5-daa76c668cbe';
 var subscribe_key = 'sub-c-aa11c420-230d-11e7-894d-0619f8945a4f';
-channel = 'ChatRoomDeeeremo';
-var username ;
+channel = '7556877eww76';
+var username = window.location.href.split("Email=");
+username = username[1];
 
 window.onload = function ()
 {
-    GetName();
+    debugger
     initialize();
 }
+
 
 
 function GetName() {
@@ -19,13 +21,14 @@ function GetName() {
         contentType: 'application/json; charset=utf-8',
 
         success: function (data) {
-            username = data;
+            username= data;
         }
     })
 }
 
 function initialize() {
     //initialize chatroom
+    debugger
     pubnub = PUBNUB.init({
         publish_key: publish_key,
         subscribe_key: subscribe_key,
@@ -61,6 +64,32 @@ function initialize() {
             channel: channel,
             message: pubnub.get_uuid() + ' : ' + $('#message').val()
         });
+
+        var message = pubnub.get_uuid() + ' : ' + $('#message').val();
+        
+        $.ajax({
+            url: '/Chatrooms/LogChat',
+            data: JSON.stringify({email: message}),
+            method: 'post',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (data) {
+
+            }
+        })
+
         $('#message').val('');
+    });
+
+}
+
+
+function leave() {
+    pubnub.unsubscribe({
+        channel: channel,
+        callback: function () {
+            window.location = 'http://localhost:8550/Home/Index';
+        }
     });
 }

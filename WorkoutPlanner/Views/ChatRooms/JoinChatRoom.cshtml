@@ -1,43 +1,46 @@
 ﻿
 @{
-	ViewBag.Title = "JoinChatRoom";
+    ViewBag.Title = "JoinChatRoom";
+    var users = (List<string>)ViewData["users"];
 }
 <head>
-	<title>PubNub Simple Chat Room Demo</title>
-	<script src="http://cdn.pubnub.com/pubnub.min.js"></script>
-	<script src="~/Scripts/PubNub.js"></script>
+    <title>PubNub Simple Chat Room Demo</title>
+    <script src="http://cdn.pubnub.com/pubnub.min.js"></script>
+    <script src="~/Scripts/PubNub.js"></script>
 </head>
 
 
 
 <body>
-	<h2>ChatRoom</h2>
-	<div class="row">
-		<div class="col-md-3">
-			<h3>Online Buddies</h3>
-		</div>
-		<div class="col-md-9">
-			<div class="row">
-				<div class="col-md-12">
-					<h3>Chat Log</h3>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-3">
-			<div id="userList" class="table-bordered userList"></div>
-		</div>
-		<div class="col-md-9">
-			<div class="row">
-				<div class="col-md-12">
-					<div id="chatHistory" class="table-bordered chatHistory" style="height: 400px"></div>
-				</div>
-				<div class="col-md-12">
-					<input type="text" id="message" placeholder="Enter your message here" class="message" />
-					<button id="sendButton" class="btn btn-primary sendButton">Send</button>
-				</div>
-			</div>
-		</div>
-	</div>
+    <h3>ChatRoom: @users[0] and @users[1]</h3>
+    <div class="row">
+        <div class="col-md-3">
+            <h4>Online Buddies</h4>
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-10">
+                    <h4>Chat Log</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div id="userList" class="table-bordered userList"></div>
+            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+            <button id="leaveButton" class="btn btn-danger leaveButton" onclick="leave()">Leave</button>
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="chatHistory" class="table-bordered chatHistory" style="height: 400px"></div>
+                </div>
+                <div class="col-md-10">
+                    <input type="text" id="message" placeholder="Enter your message here" class="message" />
+                    <button id="sendButton" class="btn btn-primary sendButton">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>

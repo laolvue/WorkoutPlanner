@@ -156,6 +156,7 @@ namespace WorkoutPlanner.Controllers
             ViewData["image"] = userImages;
             ViewData["userNames"] = userNames;
             ViewData["statuses"] = userStatuses;
+            ViewData["userEmail"] = User.Identity.Name;
             
 
 

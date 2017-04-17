@@ -11,9 +11,9 @@ namespace WorkoutPlanner.Models
     {
         [Key]
         public int id { get; set; }
-        public int chatroom { get; set; }
-        [ForeignKey("UserInfo")]
-        public int userId { get; set; }
-        public UserInfo UserInfo { get; set; }
+        public string buddyOne { get; set; }
+        public string buddyTwo { get; set; }
+        public string message { get; set; }
+        public DateTime timeSent { get; set; }
     }
 }

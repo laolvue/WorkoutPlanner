@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "GetChatLog";
+    var chat = (List<string>)ViewData["chat"];
+    var time = (List<string>)ViewData["time"];
+    var names = (List<string>)ViewData["names"];
+}
+
+<h2>Chat History: @names[0] and @names[1]</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <textarea readonly rows="4" cols="50" style="resize: none; min-width: 800px;height:300px">
+            @for (int i = chat.Count-1; i >=0; i--)
+            {
+                @time[i] @:&#10;@chat[i] &#10;
+            }
+        </textarea>
+    </div>
+</div>

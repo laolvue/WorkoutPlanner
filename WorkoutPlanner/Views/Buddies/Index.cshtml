@@ -5,6 +5,8 @@
     var status = (List<string>)ViewData["statuses"];
     var image = (List<string>)ViewData["image"];
     var names = (List<string>)ViewData["userNames"];
+    var userEmail = (string)ViewData["userEmail"];
+
 }
 
 <h2>Buddies</h2>
@@ -42,6 +44,7 @@
             </td>
             <td>
                 <p>@names[i]</p>
+                <input hidden type="button" id="namee" name="@names[i]"/>
             </td>
             @if (status[i] == "Sent")
             {
@@ -55,6 +58,10 @@
             @if (status[i] == "Accepted")
             {
                 <td>
+                    <input type="button" id="test" name="@userEmail" style="background-color: #8ebdff" value="Chat" onclick="getNameOfUser()" />
+                    <br />
+                    <input type="button" style="background-color: #78c5ff" value="Chat History" onclick="location.href='@Url.Action("GetChatLog", "Chatrooms",new { email = names[i] })'" />
+
                 </td>
                 <td>
                     @Html.ActionLink("Delete Buddy", "DeleteBuddy", new { buddyEmail = names[i] }) |
@@ -65,3 +72,12 @@
 
 
 </table>
+<script type="text/javascript">
+    function getNameOfUser() {
+        var name = document.getElementById("namee").name;
+        var user = document.getElementById("test").name;
+        console.log(window.location.href);
+        window.location.href = 'http://localhost:8550/ChatRooms/JoinChatRoom?email=' + name+'&userEmail='+user;
+
+    }
+</script>
