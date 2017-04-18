@@ -17,9 +17,9 @@ namespace WorkoutPlanner.Models
         [Display(Name = "Age")]
         public int age { get; set; }
         [Display(Name = "Height")]
-        public int height { get; set; }
+        public string height { get; set; }
         [Display(Name = "Weight")]
-        public int weight { get; set; }
+        public string weight { get; set; }
         [EmailAddress]
         public string email { get; set; }
     }

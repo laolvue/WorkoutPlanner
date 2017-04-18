@@ -11,7 +11,7 @@
 }
 
 
-<div value=@id id="userId" style="display: none;"></div>
+<input hidden type="button" id="idOfUser" name="@id" />
 
     <div class="container">
         <div class="row">
@@ -93,78 +93,3 @@
 
 
     <script src="~/Scripts/Workout.js"></script>
-
-
-    @*<tr>
-            <h1></h1>
-        </tr>
-        <tr>
-            <th>
-                <h4></h4>
-            </th>
-            <th>
-                <h4>Exercise</h4>
-            <th>
-                <h4>Sets</h4>
-            </th>
-            <th>
-                <h4>Reps</h4>
-            </th>
-            <th>
-                <h4>Notes</h4>
-            </th>
-        </tr>*@
-    @*<table class="table">
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        <img alt="" src="@prod[i]" style="height:200px;width:300px;" />
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.workoutName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.set)
-                    <td>
-                        @Html.DisplayFor(modelItem => item.rep)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.notes)
-                    </td>
-                </tr>
-                i++;
-            }
-        </table>*@
-
-
-    @*<div class="row">
-            <div class="col-md-4">
-                <img alt="" src="@prod[i]" style="height:200px;width:300px;" />
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayFor(modelItem => item.workoutName)
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayFor(modelItem => item.set)
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayFor(modelItem => item.rep)
-            </div>
-            <div class="col-md-2">
-                @Html.DisplayFor(modelItem => item.notes)
-            </div>
-        </div>
-        <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Muscle.muscleName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.exerciseName)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.exerciseId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.exerciseId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.exerciseId })
-                </td>
-            </tr>*@

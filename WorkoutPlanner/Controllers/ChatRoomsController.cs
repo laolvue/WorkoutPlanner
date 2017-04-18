@@ -67,17 +67,8 @@ namespace WorkoutPlanner.Controllers
         public ActionResult LogChat(string email)
         {
             var userEmail = TempData["Emails"] as string;
-
-            //var chatLog = from a in db.ChatRooms
-            //              where a.buddyOne == userEmail || a.buddyTwo == userEmail && a.buddyOne == User.Identity.Name || a.buddyTwo == User.Identity.Name
-            //              select a;
-
-            //var chatlogs = chatLog.ToList();
-
-            //if(chatlogs.Count() == 0)
-            //{
             var channel = from a in db.ChatRooms
-                          where a.buddyOne == userEmail || a.buddyTwo == userEmail && a.buddyOne == User.Identity.Name || a.buddyTwo == User.Identity.Name
+                          where (a.buddyOne == userEmail || a.buddyTwo == userEmail) && (a.buddyOne == User.Identity.Name || a.buddyTwo == User.Identity.Name)
                           select a.channel;
 
             var chatChannel = channel.ToList()[0];
@@ -103,7 +94,7 @@ namespace WorkoutPlanner.Controllers
         public ActionResult GetChatLog(string email)
         {
             var chatLog = from a in db.ChatRooms
-                          where a.buddyOne == email || a.buddyTwo == email && a.buddyOne == User.Identity.Name || a.buddyTwo == User.Identity.Name
+                          where (a.buddyOne == email || a.buddyTwo == email) && (a.buddyOne == User.Identity.Name || a.buddyTwo == User.Identity.Name)
                           select a;
 
             var chatlogs = chatLog.ToList();

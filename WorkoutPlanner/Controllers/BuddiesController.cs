@@ -143,7 +143,7 @@ namespace WorkoutPlanner.Controllers
                 userStatuses.Add(item.status);
 
                 var chatLog = from y in db.ChatRooms
-                              where y.buddyOne == item.buddyEmail || y.buddyTwo == item.buddyEmail && y.buddyOne == User.Identity.Name || y.buddyTwo == User.Identity.Name
+                              where (y.buddyOne == item.buddyEmail || y.buddyTwo == item.buddyEmail) && (y.buddyOne == User.Identity.Name || y.buddyTwo == User.Identity.Name)
                               select y.channel;
                 if (chatLog.Count() > 0)
                 {
@@ -335,7 +335,7 @@ namespace WorkoutPlanner.Controllers
 
 
                 var chatroomChannel = from z in db.ChatRooms
-                                      where z.buddyOne == buddyEmail || z.buddyTwo == buddyEmail && z.buddyOne == User.Identity.Name || z.buddyTwo == User.Identity.Name
+                                      where (z.buddyOne == buddyEmail || z.buddyTwo == buddyEmail) && (z.buddyOne == User.Identity.Name || z.buddyTwo == User.Identity.Name)
                                       select z;
                 if (chatroomChannel.Count() == 0)
                 {

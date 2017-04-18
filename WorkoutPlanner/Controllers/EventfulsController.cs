@@ -144,7 +144,7 @@ namespace WorkoutPlanner.Controllers
                 var dayOfWeek = getDay(workoutEvent);
                 string muscle = getMuscleName(workoutEvent);
                 
-                for (int i = DateTime.UtcNow.Month; i < 12; i++)
+                for (int i = DateTime.Now.Month; i < 12; i++)
                 {
                     DateTime mondayz = new DateTime(2017, i, 1);
                     while (mondayz.Day <= DateTime.DaysInMonth(2017, i))
@@ -158,7 +158,7 @@ namespace WorkoutPlanner.Controllers
                             using (var ct = new ApplicationDbContext())
                             {
                                 var duplicateTest = from b in ct.Eventfuls
-                                                    where b.Title == muscle && b.StartAt == mondayz.Date
+                                                    where b.Title == muscle && b.StartAt == mondayz.Date && b.userEmail == User.Identity.Name
                                                     select b;
                                 int counter = duplicateTest.ToList().Count;
                                 if (counter == 0)
@@ -192,7 +192,7 @@ namespace WorkoutPlanner.Controllers
                     }
 
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Calendar");
             }
 
             return View();

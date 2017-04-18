@@ -45,7 +45,6 @@
             </td>
             <td>
                 <p>@names[i]</p>
-                <input hidden type="button" id="namee" name="@names[i]" />
                 @if (channel.Count > 0)
                 {
                     <input hidden type="button" id="channelz" name="@channel[i]" />
@@ -63,7 +62,7 @@
             @if (status[i] == "Accepted")
             {
                 <td>
-                    <input type="button" id="test" name="@userEmail" style="background-color: #8ebdff" value="Chat" onclick="getNameOfUser()" />
+                    <input type="button" id="test" name="@userEmail" style="background-color: #8ebdff" value="Chat" onclick="getNameOfUser('@names[i]$@channel[i]');" />
                     <br />
                     <input type="button" style="background-color: #78c5ff" value="Chat History" onclick="location.href='@Url.Action("GetChatLog", "Chatrooms",new { email = names[i] })'" />
 
@@ -78,10 +77,10 @@
 
 </table>
 <script type="text/javascript">
-    function getNameOfUser() {
-        var name = document.getElementById("namee").name;
-        var user = document.getElementById("test").name;
-        var channel = document.getElementById("channelz").name;
+    function getNameOfUser(buddy) {
+        var name = buddy.split('$')[0];
+        var user = document.getElementById('test').name;
+        var channel = buddy.split('$')[1];
         console.log(window.location.href);
         window.location.href = 'http://localhost:8550/ChatRooms/JoinChatRoom?email=' + name+'&userEmail='+user +'&channel='+channel;
 
